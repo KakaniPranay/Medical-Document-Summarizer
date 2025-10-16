@@ -1,0 +1,16 @@
+flask>=2.0
+python-dotenv
+nltk
+spacy
+sentence-transformers
+networkx
+transformers
+torch
+openai
+pdfplumber
+python-docx
+pytesseract
+Pillow
+faiss-cpu
+rouge-score
+pytest
