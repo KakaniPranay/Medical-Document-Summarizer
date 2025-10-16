@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Medical Document Summarizer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* small inline tweaks */
+        .top-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .file-info {
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .small-muted {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .chunk {
+            border-left: 3px solid #eee;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: #fff;
+        }
+
+        .meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .toggle {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .support-list {
+            margin-top: 8px;
+        }
+
+        .code {
+            font-family: monospace;
+            background: #f6f8fa;
+            padding: 4px 6px;
+            border-radius: 4px;
+        }
+
+        textarea#extracted {
+            height: 120px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comprehensive Medical Document Summarizer</h1>
+
+        <form method="post" enctype="multipart/form-data" id="summ-form">
+            <div class="top-row">
+                <label for="file" style="margin-right:6px;">Upload file</label>
+                <input type="file" id="file" name="file" accept=".pdf,.docx,.txt,.png,.jpg,.jpeg" />
+                <div class="file-info" id="file-info">No file selected</div>
+
+                <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+                    <label for="method">Method:</label>
+                    <select id="method" name="method">
+                        <option value="hybrid" {% if method=='hybrid' %}selected{% endif %}>Hybrid (TextRank →
+                            Abstractive)</option>
+                        <option value="extractive" {% if method=='extractive' %}selected{% endif %}>Extractive
+                            (TextRank)</option>
+                        <option value="abstractive" {% if method=='abstractive' %}selected{% endif %}>Abstractive (LLM)
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- inside the form, near file-info -->
+            <div style="display:flex; gap:12px; align-items:center;">
+                <div class="file-info" id="file-info">
+                    {% if uploaded_filename %}
+                    Stored file: <strong>{{ uploaded_filename }}</strong>
+                    {% else %}
+                    No file selected
+                    {% endif %}
+                </div>
+
+                {% if uploaded_filename %}
+                <!-- Button to clear stored extracted text (posts to /clear) -->
+                <form method="post" action="{{ url_for('clear_stored') }}" style="display:inline;">
+                    <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Clear stored file</button>
+                </form>
+                {% endif %}
+            </div>
+
+            <div class="meta">
+                <div class="toggle">
+                    <input type="checkbox" id="on_prem" name="on_prem" {% if request.form.get('on_prem') %}checked{%
+                        endif %} />
+                    <label for="on_prem" class="small-muted">On-premise only (disable external API calls)</label>
+                </div>
+
+                <div class="toggle">
+                    <input type="checkbox" id="redact" name="redact" {% if request.form.get('redact') %}checked{% endif
+                        %} />
+                    <label for="redact" class="small-muted">Attempt PHI redaction before external calls</label>
+                </div>
+
+                <button type="submit" class="btn" style="margin-left:auto;">Summarize</button>
+            </div>
+
+            <hr style="margin:14px 0;" />
+
+            <!-- Paste area -->
+            <label for="text">Paste medical text or notes here (or upload file above):</label><br />
+            <textarea id="text" name="text" rows="12"
+                placeholder="Paste medical reports, clinical notes, or article text...">{{ pasted_text or '' }}</textarea>
+
+            <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
+                <button type="submit" class="btn">Summarize</button>
+                <button type="button" id="clear-text" class="btn btn-secondary">Clear text</button>
+                <div class="small-muted" style="margin-left:auto;">Tip: paste text OR upload a file — not both.</div>
+            </div>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flashes" style="margin-top:12px;">
+            {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <!-- Extracted text preview (shows only when file was uploaded) -->
+        {% if extracted_text %}
+        <div class="result" style="margin-top:18px;">
+            <h2>Extracted text</h2>
+            <p class="small-muted">This is the text extracted from your uploaded file. Review and edit if needed before
+                summarizing.</p>
+            <textarea id="extracted" readonly>{{ extracted_text }}</textarea>
+            <div style="margin-top:8px;">
+                <button id="copy-extracted" class="btn btn-secondary">Copy extracted text</button>
+                <button id="edit-extracted" class="btn" style="margin-left:6px;">Edit in place</button>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Show the extractive seed if backend provides it -->
+        {% if extractive_seed %}
+        <div class="result" style="margin-top:18px;">
+            <h2>Extractive seed (TextRank)</h2>
+            <p class="small-muted">Top salient sentences selected by TextRank (used as the seed for
+                retrieval/abstractive summarization).</p>
+            <div class="chunk">{{ extractive_seed }}</div>
+        </div>
+        {% endif %}
+
+        <!-- Final summary -->
+        {% if summary is not none %}
+        <div class="result" style="margin-top:18px;">
+            <h2>Summary <small class="small-muted">({{ method }})</small></h2>
+            <div class="meta" style="justify-content:space-between;">
+                <div class="small-muted">Summary produced on {{ (now() if now is defined else '') }}</div>
+                <div class="small-muted">Model: {{ summary_model if summary_model is defined else 'local/default' }}
+                </div>
+            </div>
+            <div style="margin-top:10px;">
+                {% if summary is mapping %}
+                {% if summary.summary %}
+                <div class="chunk">{{ summary.summary }}</div>
+                {% else %}
+                <div class="chunk">{{ summary }}</div>
+                {% endif %}
+                {% else %}
+                <div class="chunk">{{ summary }}</div>
+                {% endif %}
+            </div>
+
+            <!-- Supporting sources (if backend returned them) -->
+            {% if sources %}
+            <div class="support-list">
+                <h3 style="margin-top:12px;">Supporting chunks / sources</h3>
+                <p class="small-muted">Click to expand the supporting chunk text.</p>
+                <div>
+                    {% for s in sources %}
+                    <div style="margin-bottom:10px;">
+                        <button class="btn btn-secondary toggle-chunk" data-chunk-id="{{ loop.index0 }}">Show chunk {{
+                            loop.index }}</button>
+                        <div class="chunk-snippet" id="chunk-{{ loop.index0 }}" style="display:none; margin-top:6px;">
+                            <div class="chunk">{{ s.text }}</div>
+                            {% if s.meta %}
+                            <div class="small-muted">Metadata: {{ s.meta }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <footer style="margin-top:26px; font-size:0.9rem; color:#666;">
+            <p>Note: This tool is for prototyping and research. Do not use summaries for clinical decision-making
+                without clinician review. Toggle <span class="code">On-premise only</span> to prevent sending data to
+                external APIs.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple client-side helpers
+        const fileInput = document.getElementById('file');
+        const fileInfo = document.getElementById('file-info');
+        const textArea = document.getElementById('text');
+        const clearBtn = document.getElementById('clear-text');
+        const copyExtractedBtn = document.getElementById('copy-extracted');
+        const editExtractedBtn = document.getElementById('edit-extracted');
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                const f = e.target.files[0];
+                if (!f) {
+                    fileInfo.textContent = 'No file selected';
+                    return;
+                }
+                fileInfo.textContent = `${f.name} — ${Math.round(f.size / 1024)} KB`;
+                if (textArea && textArea.value.trim()) {
+                    fileInfo.textContent += ' — Note: pasted text will be ignored if file is uploaded.';
+                }
+            });
+        }
+
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (textArea) textArea.value = '';
+            });
+        }
+
+        if (copyExtractedBtn) {
+            copyExtractedBtn.addEventListener('click', async () => {
+                const extracted = document.getElementById('extracted');
+                if (!extracted) return;
+                try {
+                    await navigator.clipboard.writeText(extracted.value);
+                    alert('Extracted text copied to clipboard');
+                } catch (err) {
+                    alert('Could not copy automatically — please select and copy.');
+                }
+            });
+        }
+
+        if (editExtractedBtn) {
+            editExtractedBtn.addEventListener('click', () => {
+                const extracted = document.getElementById('extracted');
+                const pasted = document.getElementById('text');
+                if (!extracted || !pasted) return;
+                // make extracted editable and copy to textarea for editing
+                extracted.removeAttribute('readonly');
+                pasted.value = extracted.value;
+                // hide the edit button after copying so user edits in textarea
+                editExtractedBtn.style.display = 'none';
+                // scroll to the textarea for convenience
+                pasted.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Toggle chunk snippets
+        document.querySelectorAll('.toggle-chunk').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-chunk-id');
+                const panel = document.getElementById('chunk-' + id);
+                if (!panel) return;
+                const shown = panel.style.display !== 'none';
+                panel.style.display = shown ? 'none' : 'block';
+                btn.textContent = shown ? `Show chunk ${parseInt(id) + 1}` : `Hide chunk ${parseInt(id) + 1}`;
+            });
+        });
+    </script>
+</body>
+
+</html>
