@@ -1,0 +1,77 @@
+/* static/style.css */
+body {
+  font-family: Arial, sans-serif;
+  background: #f7f9fb;
+  color: #222;
+  padding: 30px;
+}
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-size: 14px;
+}
+.controls {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+button.btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: none;
+  background: #1976d2;
+  color: white;
+  cursor: pointer;
+}
+button.btn-secondary {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.result {
+  margin-top: 20px;
+  background: #fafafa;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+.flashes {
+  margin-top: 10px;
+}
+.flash {
+  padding: 8px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+.flash.warning {
+  background: #fff3cd;
+  color: #856404;
+}
+.flash.danger {
+  background: #f8d7da;
+  color: #842029;
+}
+.small-muted {
+  font-size: 0.9rem;
+  color: #666;
+}
+.chunk {
+  border-left: 3px solid #eee;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background: #fff;
+}
