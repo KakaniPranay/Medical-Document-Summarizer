@@ -1,0 +1,983 @@
+[
+    {
+        "label": "chunk_text_by_sentences",
+        "importPath": "chunker",
+        "description": "chunker",
+        "isExtraImport": true,
+        "detail": "chunker",
+        "documentation": {}
+    },
+    {
+        "label": "chunk_text_by_sentences",
+        "importPath": "chunker",
+        "description": "chunker",
+        "isExtraImport": true,
+        "detail": "chunker",
+        "documentation": {}
+    },
+    {
+        "label": "HybridSummarizer",
+        "importPath": "summarizer",
+        "description": "summarizer",
+        "isExtraImport": true,
+        "detail": "summarizer",
+        "documentation": {}
+    },
+    {
+        "label": "HybridSummarizer",
+        "importPath": "summarizer",
+        "description": "summarizer",
+        "isExtraImport": true,
+        "detail": "summarizer",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "os.path",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os.path",
+        "description": "os.path",
+        "detail": "os.path",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "ArgumentParser",
+        "importPath": "argparse",
+        "description": "argparse",
+        "isExtraImport": true,
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Container",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "TextIO",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Union",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "cast",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Container",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "pdfminer",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pdfminer",
+        "description": "pdfminer",
+        "detail": "pdfminer",
+        "documentation": {}
+    },
+    {
+        "label": "PDFDocument",
+        "importPath": "pdfminer.pdfdocument",
+        "description": "pdfminer.pdfdocument",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfdocument",
+        "documentation": {}
+    },
+    {
+        "label": "PDFNoOutlines",
+        "importPath": "pdfminer.pdfdocument",
+        "description": "pdfminer.pdfdocument",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfdocument",
+        "documentation": {}
+    },
+    {
+        "label": "PDFXRefFallback",
+        "importPath": "pdfminer.pdfdocument",
+        "description": "pdfminer.pdfdocument",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfdocument",
+        "documentation": {}
+    },
+    {
+        "label": "PDFIOError",
+        "importPath": "pdfminer.pdfexceptions",
+        "description": "pdfminer.pdfexceptions",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfexceptions",
+        "documentation": {}
+    },
+    {
+        "label": "PDFObjectNotFound",
+        "importPath": "pdfminer.pdfexceptions",
+        "description": "pdfminer.pdfexceptions",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfexceptions",
+        "documentation": {}
+    },
+    {
+        "label": "PDFTypeError",
+        "importPath": "pdfminer.pdfexceptions",
+        "description": "pdfminer.pdfexceptions",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfexceptions",
+        "documentation": {}
+    },
+    {
+        "label": "PDFValueError",
+        "importPath": "pdfminer.pdfexceptions",
+        "description": "pdfminer.pdfexceptions",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfexceptions",
+        "documentation": {}
+    },
+    {
+        "label": "PDFValueError",
+        "importPath": "pdfminer.pdfexceptions",
+        "description": "pdfminer.pdfexceptions",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfexceptions",
+        "documentation": {}
+    },
+    {
+        "label": "PDFPage",
+        "importPath": "pdfminer.pdfpage",
+        "description": "pdfminer.pdfpage",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfpage",
+        "documentation": {}
+    },
+    {
+        "label": "PDFParser",
+        "importPath": "pdfminer.pdfparser",
+        "description": "pdfminer.pdfparser",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdfparser",
+        "documentation": {}
+    },
+    {
+        "label": "PDFObjRef",
+        "importPath": "pdfminer.pdftypes",
+        "description": "pdfminer.pdftypes",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdftypes",
+        "documentation": {}
+    },
+    {
+        "label": "PDFStream",
+        "importPath": "pdfminer.pdftypes",
+        "description": "pdfminer.pdftypes",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdftypes",
+        "documentation": {}
+    },
+    {
+        "label": "resolve1",
+        "importPath": "pdfminer.pdftypes",
+        "description": "pdfminer.pdftypes",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdftypes",
+        "documentation": {}
+    },
+    {
+        "label": "stream_value",
+        "importPath": "pdfminer.pdftypes",
+        "description": "pdfminer.pdftypes",
+        "isExtraImport": true,
+        "detail": "pdfminer.pdftypes",
+        "documentation": {}
+    },
+    {
+        "label": "LIT",
+        "importPath": "pdfminer.psparser",
+        "description": "pdfminer.psparser",
+        "isExtraImport": true,
+        "detail": "pdfminer.psparser",
+        "documentation": {}
+    },
+    {
+        "label": "PSKeyword",
+        "importPath": "pdfminer.psparser",
+        "description": "pdfminer.psparser",
+        "isExtraImport": true,
+        "detail": "pdfminer.psparser",
+        "documentation": {}
+    },
+    {
+        "label": "PSLiteral",
+        "importPath": "pdfminer.psparser",
+        "description": "pdfminer.psparser",
+        "isExtraImport": true,
+        "detail": "pdfminer.psparser",
+        "documentation": {}
+    },
+    {
+        "label": "isnumber",
+        "importPath": "pdfminer.utils",
+        "description": "pdfminer.utils",
+        "isExtraImport": true,
+        "detail": "pdfminer.utils",
+        "documentation": {}
+    },
+    {
+        "label": "AnyIO",
+        "importPath": "pdfminer.utils",
+        "description": "pdfminer.utils",
+        "isExtraImport": true,
+        "detail": "pdfminer.utils",
+        "documentation": {}
+    },
+    {
+        "label": "pdfminer.high_level",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pdfminer.high_level",
+        "description": "pdfminer.high_level",
+        "detail": "pdfminer.high_level",
+        "documentation": {}
+    },
+    {
+        "label": "LAParams",
+        "importPath": "pdfminer.layout",
+        "description": "pdfminer.layout",
+        "isExtraImport": true,
+        "detail": "pdfminer.layout",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "url_for",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "flash",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "session",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text_from_file",
+        "importPath": "io_utils",
+        "description": "io_utils",
+        "isExtraImport": true,
+        "detail": "io_utils",
+        "documentation": {}
+    },
+    {
+        "label": "FaissStore",
+        "importPath": "vector_store",
+        "description": "vector_store",
+        "isExtraImport": true,
+        "detail": "vector_store",
+        "documentation": {}
+    },
+    {
+        "label": "sent_tokenize",
+        "importPath": "nltk.tokenize",
+        "description": "nltk.tokenize",
+        "isExtraImport": true,
+        "detail": "nltk.tokenize",
+        "documentation": {}
+    },
+    {
+        "label": "sent_tokenize",
+        "importPath": "nltk.tokenize",
+        "description": "nltk.tokenize",
+        "isExtraImport": true,
+        "detail": "nltk.tokenize",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "pdfplumber",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pdfplumber",
+        "description": "pdfplumber",
+        "detail": "pdfplumber",
+        "documentation": {}
+    },
+    {
+        "label": "Document",
+        "importPath": "docx",
+        "description": "docx",
+        "isExtraImport": true,
+        "detail": "docx",
+        "documentation": {}
+    },
+    {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "pytesseract",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytesseract",
+        "description": "pytesseract",
+        "detail": "pytesseract",
+        "documentation": {}
+    },
+    {
+        "label": "pipeline",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "nltk",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "nltk",
+        "description": "nltk",
+        "detail": "nltk",
+        "documentation": {}
+    },
+    {
+        "label": "networkx",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "networkx",
+        "description": "networkx",
+        "detail": "networkx",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "clean_text",
+        "importPath": "utils",
+        "description": "utils",
+        "isExtraImport": true,
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "faiss",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "faiss",
+        "description": "faiss",
+        "detail": "faiss",
+        "documentation": {}
+    },
+    {
+        "label": "test_chunking_small",
+        "kind": 2,
+        "importPath": "tests.test_chunker",
+        "description": "tests.test_chunker",
+        "peekOfCode": "def test_chunking_small():\n    text = \"Sentence one. Sentence two. Sentence three.\"\n    chunks = chunk_text_by_sentences(text, max_words=10, overlap_words=2)\n    assert len(chunks) >= 1\n    assert \"Sentence one\" in chunks[0]",
+        "detail": "tests.test_chunker",
+        "documentation": {}
+    },
+    {
+        "label": "test_textrank_basic",
+        "kind": 2,
+        "importPath": "tests.test_textrank",
+        "description": "tests.test_textrank",
+        "peekOfCode": "def test_textrank_basic():\n    s = HybridSummarizer()\n    text = \"This is a test. The patient had fever and cough. The patient improved with treatment. Discharge in good condition.\"\n    summary = s.textrank_extract(text, top_k=2)\n    assert isinstance(summary, str) and len(summary) > 0",
+        "detail": "tests.test_textrank",
+        "documentation": {}
+    },
+    {
+        "label": "escape",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def escape(s: Union[str, bytes]) -> str:\n    if isinstance(s, bytes):\n        us = str(s, \"latin-1\")\n    else:\n        us = s\n    return ESC_PAT.sub(lambda m: \"&#%d;\" % ord(m.group(0)), us)\ndef dumpxml(out: TextIO, obj: object, codec: Optional[str] = None) -> None:\n    if obj is None:\n        out.write(\"<null />\")\n        return",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "dumpxml",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def dumpxml(out: TextIO, obj: object, codec: Optional[str] = None) -> None:\n    if obj is None:\n        out.write(\"<null />\")\n        return\n    if isinstance(obj, dict):\n        out.write('<dict size=\"%d\">\\n' % len(obj))\n        for k, v in obj.items():\n            out.write(\"<key>%s</key>\\n\" % k)\n            out.write(\"<value>\")\n            dumpxml(out, v)",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "dumptrailers",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def dumptrailers(\n    out: TextIO,\n    doc: PDFDocument,\n    show_fallback_xref: bool = False,\n) -> None:\n    for xref in doc.xrefs:\n        if not isinstance(xref, PDFXRefFallback) or show_fallback_xref:\n            out.write(\"<trailer>\\n\")\n            dumpxml(out, xref.get_trailer())\n            out.write(\"\\n</trailer>\\n\\n\")",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "dumpallobjs",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def dumpallobjs(\n    out: TextIO,\n    doc: PDFDocument,\n    codec: Optional[str] = None,\n    show_fallback_xref: bool = False,\n) -> None:\n    visited = set()\n    out.write(\"<pdf>\")\n    for xref in doc.xrefs:\n        for objid in xref.get_objids():",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "dumpoutline",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def dumpoutline(\n    outfp: TextIO,\n    fname: str,\n    objids: Any,\n    pagenos: Container[int],\n    password: str = \"\",\n    dumpall: bool = False,\n    codec: Optional[str] = None,\n    extractdir: Optional[str] = None,\n) -> None:",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "extractembedded",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def extractembedded(fname: str, password: str, extractdir: str) -> None:\n    def extract1(objid: int, obj: Dict[str, Any]) -> None:\n        filename = os.path.basename(obj.get(\"UF\") or cast(bytes, obj.get(\"F\")).decode())\n        fileref = obj[\"EF\"].get(\"UF\") or obj[\"EF\"].get(\"F\")\n        fileobj = doc.getobj(fileref.objid)\n        if not isinstance(fileobj, PDFStream):\n            error_msg = (\n                \"unable to process PDF: reference for %r is not a \"\n                \"PDFStream\" % filename\n            )",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "dumppdf",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def dumppdf(\n    outfp: TextIO,\n    fname: str,\n    objids: Iterable[int],\n    pagenos: Container[int],\n    password: str = \"\",\n    dumpall: bool = False,\n    codec: Optional[str] = None,\n    extractdir: Optional[str] = None,\n    show_fallback_xref: bool = False,",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "create_parser",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def create_parser() -> ArgumentParser:\n    parser = ArgumentParser(description=__doc__, add_help=True)\n    parser.add_argument(\n        \"files\",\n        type=str,\n        default=None,\n        nargs=\"+\",\n        help=\"One or more paths to PDF files.\",\n    )\n    parser.add_argument(",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "def main(argv: Optional[List[str]] = None) -> None:\n    parser = create_parser()\n    args = parser.parse_args(args=argv)\n    if args.debug:\n        logging.getLogger().setLevel(logging.DEBUG)\n    if args.outfile == \"-\":\n        outfp = sys.stdout\n    else:\n        outfp = open(args.outfile, \"w\")\n    if args.objects:",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nESC_PAT = re.compile(r'[\\000-\\037&<>()\"\\042\\047\\134\\177-\\377]')\ndef escape(s: Union[str, bytes]) -> str:\n    if isinstance(s, bytes):\n        us = str(s, \"latin-1\")\n    else:\n        us = s\n    return ESC_PAT.sub(lambda m: \"&#%d;\" % ord(m.group(0)), us)\ndef dumpxml(out: TextIO, obj: object, codec: Optional[str] = None) -> None:\n    if obj is None:",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "ESC_PAT",
+        "kind": 5,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "ESC_PAT = re.compile(r'[\\000-\\037&<>()\"\\042\\047\\134\\177-\\377]')\ndef escape(s: Union[str, bytes]) -> str:\n    if isinstance(s, bytes):\n        us = str(s, \"latin-1\")\n    else:\n        us = s\n    return ESC_PAT.sub(lambda m: \"&#%d;\" % ord(m.group(0)), us)\ndef dumpxml(out: TextIO, obj: object, codec: Optional[str] = None) -> None:\n    if obj is None:\n        out.write(\"<null />\")",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "LITERAL_FILESPEC",
+        "kind": 5,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "LITERAL_FILESPEC = LIT(\"Filespec\")\nLITERAL_EMBEDDEDFILE = LIT(\"EmbeddedFile\")\ndef extractembedded(fname: str, password: str, extractdir: str) -> None:\n    def extract1(objid: int, obj: Dict[str, Any]) -> None:\n        filename = os.path.basename(obj.get(\"UF\") or cast(bytes, obj.get(\"F\")).decode())\n        fileref = obj[\"EF\"].get(\"UF\") or obj[\"EF\"].get(\"F\")\n        fileobj = doc.getobj(fileref.objid)\n        if not isinstance(fileobj, PDFStream):\n            error_msg = (\n                \"unable to process PDF: reference for %r is not a \"",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "LITERAL_EMBEDDEDFILE",
+        "kind": 5,
+        "importPath": "venv.Scripts.dumppdf",
+        "description": "venv.Scripts.dumppdf",
+        "peekOfCode": "LITERAL_EMBEDDEDFILE = LIT(\"EmbeddedFile\")\ndef extractembedded(fname: str, password: str, extractdir: str) -> None:\n    def extract1(objid: int, obj: Dict[str, Any]) -> None:\n        filename = os.path.basename(obj.get(\"UF\") or cast(bytes, obj.get(\"F\")).decode())\n        fileref = obj[\"EF\"].get(\"UF\") or obj[\"EF\"].get(\"F\")\n        fileobj = doc.getobj(fileref.objid)\n        if not isinstance(fileobj, PDFStream):\n            error_msg = (\n                \"unable to process PDF: reference for %r is not a \"\n                \"PDFStream\" % filename",
+        "detail": "venv.Scripts.dumppdf",
+        "documentation": {}
+    },
+    {
+        "label": "float_or_disabled",
+        "kind": 2,
+        "importPath": "venv.Scripts.pdf2txt",
+        "description": "venv.Scripts.pdf2txt",
+        "peekOfCode": "def float_or_disabled(x: str) -> Optional[float]:\n    if x.lower().strip() == \"disabled\":\n        return None\n    try:\n        return float(x)\n    except ValueError:\n        raise argparse.ArgumentTypeError(f\"invalid float value: {x}\")\ndef extract_text(\n    files: Iterable[str] = [],\n    outfile: str = \"-\",",
+        "detail": "venv.Scripts.pdf2txt",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text",
+        "kind": 2,
+        "importPath": "venv.Scripts.pdf2txt",
+        "description": "venv.Scripts.pdf2txt",
+        "peekOfCode": "def extract_text(\n    files: Iterable[str] = [],\n    outfile: str = \"-\",\n    laparams: Optional[LAParams] = None,\n    output_type: str = \"text\",\n    codec: str = \"utf-8\",\n    strip_control: bool = False,\n    maxpages: int = 0,\n    page_numbers: Optional[Container[int]] = None,\n    password: str = \"\",",
+        "detail": "venv.Scripts.pdf2txt",
+        "documentation": {}
+    },
+    {
+        "label": "create_parser",
+        "kind": 2,
+        "importPath": "venv.Scripts.pdf2txt",
+        "description": "venv.Scripts.pdf2txt",
+        "peekOfCode": "def create_parser() -> argparse.ArgumentParser:\n    parser = argparse.ArgumentParser(description=__doc__, add_help=True)\n    parser.add_argument(\n        \"files\",\n        type=str,\n        default=None,\n        nargs=\"+\",\n        help=\"One or more paths to PDF files.\",\n    )\n    parser.add_argument(",
+        "detail": "venv.Scripts.pdf2txt",
+        "documentation": {}
+    },
+    {
+        "label": "parse_args",
+        "kind": 2,
+        "importPath": "venv.Scripts.pdf2txt",
+        "description": "venv.Scripts.pdf2txt",
+        "peekOfCode": "def parse_args(args: Optional[List[str]]) -> argparse.Namespace:\n    parsed_args = create_parser().parse_args(args=args)\n    # Propagate parsed layout parameters to LAParams object\n    if parsed_args.no_laparams:\n        parsed_args.laparams = None\n    else:\n        parsed_args.laparams = LAParams(\n            line_overlap=parsed_args.line_overlap,\n            char_margin=parsed_args.char_margin,\n            line_margin=parsed_args.line_margin,",
+        "detail": "venv.Scripts.pdf2txt",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "venv.Scripts.pdf2txt",
+        "description": "venv.Scripts.pdf2txt",
+        "peekOfCode": "def main(args: Optional[List[str]] = None) -> int:\n    parsed_args = parse_args(args)\n    outfp = extract_text(**vars(parsed_args))\n    outfp.close()\n    return 0\nif __name__ == \"__main__\":\n    sys.exit(main())",
+        "detail": "venv.Scripts.pdf2txt",
+        "documentation": {}
+    },
+    {
+        "label": "OUTPUT_TYPES",
+        "kind": 5,
+        "importPath": "venv.Scripts.pdf2txt",
+        "description": "venv.Scripts.pdf2txt",
+        "peekOfCode": "OUTPUT_TYPES = ((\".htm\", \"html\"), (\".html\", \"html\"), (\".xml\", \"xml\"), (\".tag\", \"tag\"))\ndef float_or_disabled(x: str) -> Optional[float]:\n    if x.lower().strip() == \"disabled\":\n        return None\n    try:\n        return float(x)\n    except ValueError:\n        raise argparse.ArgumentTypeError(f\"invalid float value: {x}\")\ndef extract_text(\n    files: Iterable[str] = [],",
+        "detail": "venv.Scripts.pdf2txt",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def index():\n    # if a file was uploaded earlier, prefill textarea with stored extracted text\n    stored_extracted = session.get(\"extracted_text\", \"\")\n    stored_filename = session.get(\"uploaded_filename\", \"\")\n    return render_template(\"index.html\",\n                           pasted_text=stored_extracted,\n                           extracted_text=stored_extracted if stored_extracted else \"\",\n                           uploaded_filename=stored_filename,\n                           summary=None,\n                           method=\"hybrid\",",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "summarize_route",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def summarize_route():\n    # read form inputs\n    method = request.form.get(\"method\", \"hybrid\")\n    on_prem = bool(request.form.get(\"on_prem\"))\n    redact = bool(request.form.get(\"redact\"))\n    # file upload takes precedence\n    uploaded = request.files.get(\"file\")\n    pasted_text = \"\"\n    extracted_text = \"\"\n    if uploaded and uploaded.filename:",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "clear_stored",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def clear_stored():\n    # Clears stored extracted text and filename from session\n    session.pop(\"extracted_text\", None)\n    session.pop(\"uploaded_filename\", None)\n    flash(\"Stored file/text cleared.\", \"info\")\n    return redirect(url_for(\"index\"))\nif __name__ == \"__main__\":\n    port = int(os.environ.get(\"PORT\", 5000))\n    app.run(debug=True, port=port)",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\n# ensure a secret key is set for session\napp.secret_key = os.environ.get(\"FLASK_SECRET\", \"supersecretkey123\")\n# Instantiate components (lightweight constructors; models load lazily)\nsummarizer = HybridSummarizer()\nvector_store = FaissStore()  # keep in memory per process; index will be built per doc\n@app.route(\"/\", methods=[\"GET\"])\ndef index():\n    # if a file was uploaded earlier, prefill textarea with stored extracted text\n    stored_extracted = session.get(\"extracted_text\", \"\")",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app.secret_key",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app.secret_key = os.environ.get(\"FLASK_SECRET\", \"supersecretkey123\")\n# Instantiate components (lightweight constructors; models load lazily)\nsummarizer = HybridSummarizer()\nvector_store = FaissStore()  # keep in memory per process; index will be built per doc\n@app.route(\"/\", methods=[\"GET\"])\ndef index():\n    # if a file was uploaded earlier, prefill textarea with stored extracted text\n    stored_extracted = session.get(\"extracted_text\", \"\")\n    stored_filename = session.get(\"uploaded_filename\", \"\")\n    return render_template(\"index.html\",",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "summarizer",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "summarizer = HybridSummarizer()\nvector_store = FaissStore()  # keep in memory per process; index will be built per doc\n@app.route(\"/\", methods=[\"GET\"])\ndef index():\n    # if a file was uploaded earlier, prefill textarea with stored extracted text\n    stored_extracted = session.get(\"extracted_text\", \"\")\n    stored_filename = session.get(\"uploaded_filename\", \"\")\n    return render_template(\"index.html\",\n                           pasted_text=stored_extracted,\n                           extracted_text=stored_extracted if stored_extracted else \"\",",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "vector_store",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "vector_store = FaissStore()  # keep in memory per process; index will be built per doc\n@app.route(\"/\", methods=[\"GET\"])\ndef index():\n    # if a file was uploaded earlier, prefill textarea with stored extracted text\n    stored_extracted = session.get(\"extracted_text\", \"\")\n    stored_filename = session.get(\"uploaded_filename\", \"\")\n    return render_template(\"index.html\",\n                           pasted_text=stored_extracted,\n                           extracted_text=stored_extracted if stored_extracted else \"\",\n                           uploaded_filename=stored_filename,",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "chunk_text_by_sentences",
+        "kind": 2,
+        "importPath": "chunker",
+        "description": "chunker",
+        "peekOfCode": "def chunk_text_by_sentences(text: str, max_words: int = 600, overlap_words: int = 100) -> List[str]:\n    sents = sent_tokenize(text)\n    chunks = []\n    cur = []\n    cur_len = 0\n    for sent in sents:\n        tok_len = len(sent.split())\n        if cur_len + tok_len > max_words and cur:\n            chunks.append(\" \".join(cur))\n            # prepare overlap",
+        "detail": "chunker",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text_from_pdf_bytes",
+        "kind": 2,
+        "importPath": "io_utils",
+        "description": "io_utils",
+        "peekOfCode": "def extract_text_from_pdf_bytes(file_bytes: bytes) -> str:\n    text_parts = []\n    with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:\n        for page in pdf.pages:\n            page_text = page.extract_text()\n            if page_text:\n                text_parts.append(page_text)\n    return \"\\n\".join(text_parts)\ndef extract_text_from_docx_bytes(file_bytes: bytes) -> str:\n    doc = Document(io.BytesIO(file_bytes))",
+        "detail": "io_utils",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text_from_docx_bytes",
+        "kind": 2,
+        "importPath": "io_utils",
+        "description": "io_utils",
+        "peekOfCode": "def extract_text_from_docx_bytes(file_bytes: bytes) -> str:\n    doc = Document(io.BytesIO(file_bytes))\n    paras = [p.text for p in doc.paragraphs if p.text]\n    return \"\\n\".join(paras)\ndef extract_text_from_image_bytes(file_bytes: bytes) -> str:\n    image = Image.open(io.BytesIO(file_bytes)).convert(\"RGB\")\n    text = pytesseract.image_to_string(image)\n    return text\ndef extract_text_from_file(filename: str, file_bytes: bytes) -> str:\n    name = filename.lower()",
+        "detail": "io_utils",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text_from_image_bytes",
+        "kind": 2,
+        "importPath": "io_utils",
+        "description": "io_utils",
+        "peekOfCode": "def extract_text_from_image_bytes(file_bytes: bytes) -> str:\n    image = Image.open(io.BytesIO(file_bytes)).convert(\"RGB\")\n    text = pytesseract.image_to_string(image)\n    return text\ndef extract_text_from_file(filename: str, file_bytes: bytes) -> str:\n    name = filename.lower()\n    if name.endswith(\".pdf\"):\n        return extract_text_from_pdf_bytes(file_bytes)\n    if name.endswith(\".docx\"):\n        return extract_text_from_docx_bytes(file_bytes)",
+        "detail": "io_utils",
+        "documentation": {}
+    },
+    {
+        "label": "extract_text_from_file",
+        "kind": 2,
+        "importPath": "io_utils",
+        "description": "io_utils",
+        "peekOfCode": "def extract_text_from_file(filename: str, file_bytes: bytes) -> str:\n    name = filename.lower()\n    if name.endswith(\".pdf\"):\n        return extract_text_from_pdf_bytes(file_bytes)\n    if name.endswith(\".docx\"):\n        return extract_text_from_docx_bytes(file_bytes)\n    if name.endswith((\".png\", \".jpg\", \".jpeg\", \".tiff\", \".bmp\")):\n        return extract_text_from_image_bytes(file_bytes)\n    try:\n        return file_bytes.decode(\"utf-8\")",
+        "detail": "io_utils",
+        "documentation": {}
+    },
+    {
+        "label": "HybridSummarizer",
+        "kind": 6,
+        "importPath": "summarizer",
+        "description": "summarizer",
+        "peekOfCode": "class HybridSummarizer:\n    def __init__(self,\n                 embedding_model_name: str = \"all-MiniLM-L6-v2\",\n                 abstractive_model_name: str = \"sshleifer/distilbart-cnn-12-6\"):\n        # Try to load SentenceTransformer embedder (optional)\n        self.embedder = None\n        try:\n            from sentence_transformers import SentenceTransformer\n            self.embedder = SentenceTransformer(embedding_model_name)\n            logger.info(f\"Loaded embedder: {embedding_model_name}\")",
+        "detail": "summarizer",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "summarizer",
+        "description": "summarizer",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nlogging.basicConfig(level=logging.INFO)\nclass HybridSummarizer:\n    def __init__(self,\n                 embedding_model_name: str = \"all-MiniLM-L6-v2\",\n                 abstractive_model_name: str = \"sshleifer/distilbart-cnn-12-6\"):\n        # Try to load SentenceTransformer embedder (optional)\n        self.embedder = None\n        try:\n            from sentence_transformers import SentenceTransformer",
+        "detail": "summarizer",
+        "documentation": {}
+    },
+    {
+        "label": "clean_text",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def clean_text(text: str) -> str:\n    # basic cleaning to improve tokenization\n    if text is None:\n        return \"\"\n    text = text.replace(\"\\r\", \" \").replace(\"\\u200b\", \"\")\n    text = re.sub(r'(?m)^\\s*page\\s*\\d+\\s*(of\\s*\\d+)?\\s*$', '', text, flags=re.I)\n    text = re.sub(r'-\\s*\\n', '', text)        # fix hyphenated line breaks\n    text = re.sub(r'\\s+\\n\\s+', '\\n', text)\n    text = re.sub(r'\\s{2,}', ' ', text)\n    return text.strip()",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "redact_phi",
+        "kind": 2,
+        "importPath": "utils",
+        "description": "utils",
+        "peekOfCode": "def redact_phi(text: str) -> str:\n    # simple regex-based PHI redaction (best-effort)\n    text = re.sub(r'\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b', '[REDACTED_EMAIL]', text)\n    text = re.sub(r'\\b\\d{3}[- ]?\\d{3}[- ]?\\d{4}\\b', '[REDACTED_PHONE]', text)\n    text = re.sub(r'\\b(MRN|mrn|Patient ID|PID)[\\s:]*\\d+\\b', '[REDACTED_ID]', text, flags=re.I)\n    return text",
+        "detail": "utils",
+        "documentation": {}
+    },
+    {
+        "label": "FaissStore",
+        "kind": 6,
+        "importPath": "vector_store",
+        "description": "vector_store",
+        "peekOfCode": "class FaissStore:\n    def __init__(self, model_name=\"all-MiniLM-L6-v2\"):\n        self.model = SentenceTransformer(model_name)\n        # build empty index after seeing a sample embedding\n        sample = self.model.encode(\"hello\", convert_to_numpy=True)\n        self.dim = sample.shape[0]\n        self.index = faiss.IndexFlatIP(self.dim)\n        self.texts: List[str] = []\n        self.metadatas: List[Dict] = []\n    def reset(self):",
+        "detail": "vector_store",
+        "documentation": {}
+    }
+]

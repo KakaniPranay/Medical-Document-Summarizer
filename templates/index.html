@@ -87,11 +87,11 @@
                 <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
                     <label for="method">Method:</label>
                     <select id="method" name="method">
-                        <option value="hybrid" {% if method=='hybrid' %}selected{% endif %}>Hybrid (TextRank →
-                            Abstractive)</option>
+                        <option value="abstractive" {% if method=='abstractive' %}selected{% endif %}>Abstractive (LLM)
                         <option value="extractive" {% if method=='extractive' %}selected{% endif %}>Extractive
                             (TextRank)</option>
-                        <option value="abstractive" {% if method=='abstractive' %}selected{% endif %}>Abstractive (LLM)
+                        <option value="hybrid" {% if method=='hybrid' %}selected{% endif %}>Hybrid (TextRank →
+                            Abstractive)</option>
                         </option>
                     </select>
                 </div>
@@ -108,10 +108,11 @@
                 </div>
 
                 {% if uploaded_filename %}
-                <!-- Button to clear stored extracted text (posts to /clear) -->
-                <form method="post" action="{{ url_for('clear_stored') }}" style="display:inline;">
-                    <button type="submit" class="btn btn-secondary" style="margin-left:8px;">Clear stored file</button>
-                </form>
+                <!-- Button to clear stored extracted text (posts to /clear).
+                     Use a submit button with formaction to avoid nested forms which break
+                     submit behavior in browsers. -->
+                <button type="submit" formaction="{{ url_for('clear_stored') }}" formmethod="post"
+                    class="btn btn-secondary" style="margin-left:8px;">Clear stored file</button>
                 {% endif %}
             </div>
 
@@ -211,9 +212,18 @@
                         <button class="btn btn-secondary toggle-chunk" data-chunk-id="{{ loop.index0 }}">Show chunk {{
                             loop.index }}</button>
                         <div class="chunk-snippet" id="chunk-{{ loop.index0 }}" style="display:none; margin-top:6px;">
-                            <div class="chunk">{{ s.text }}</div>
-                            {% if s.meta %}
-                            <div class="small-muted">Metadata: {{ s.meta }}</div>
+                            {# Support both old and new source shapes: {text, meta} or {snippet, points, meta} #}
+                            <div class="chunk">{{ s.get('text') or s.get('snippet') or '' }}</div>
+                            {% if s.get('points') %}
+                            <div class="small-muted">Top points:</div>
+                            <ul>
+                                {% for p in s.get('points') %}
+                                <li>{{ p }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            {% if s.get('meta') %}
+                            <div class="small-muted">Metadata: {{ s.get('meta') }}</div>
                             {% endif %}
                         </div>
                     </div>
