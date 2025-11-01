@@ -88,8 +88,10 @@ def summarize_route():
         app.logger.exception("Summarization failed")
         flash(f"Summarization error: {e}. Returning extractive fallback.", "danger")
         summary_text = summarizer.textrank_extract(text_to_summarize, top_k=6)
+        # Ensure the textarea is prefilled with either pasted text or the extracted text
+        display_text = pasted_text if pasted_text else extracted_text
         return render_template("index.html",
-                               pasted_text=pasted_text,
+                               pasted_text=display_text,
                                extracted_text=extracted_text,
                                uploaded_filename=session.get("uploaded_filename", ""),
                                summary=summary_text,
@@ -110,8 +112,10 @@ def summarize_route():
         sources = []
         model_name = None
 
+    # Keep the textarea filled with either user-pasted text or the extracted text
+    display_text = pasted_text if pasted_text else extracted_text
     return render_template("index.html",
-                           pasted_text=pasted_text,
+                           pasted_text=display_text,
                            extracted_text=extracted_text,
                            uploaded_filename=session.get("uploaded_filename", ""),
                            summary=summary_text,
