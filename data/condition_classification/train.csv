@@ -1,0 +1,49 @@
+text,label
+"HbA1c is 9.1 percent with fasting glucose persistently elevated. The patient reports polyuria and poor sugar control despite irregular metformin use.",diabetes
+"Known type 2 diabetic with neuropathic foot burning and repeated post-meal sugar spikes. Diet adherence has been poor over the last month.",diabetes
+"Blood sugar remains uncontrolled with high fasting glucose and increased thirst. Review suggests diabetes with the need for medication titration.",diabetes
+"The patient has diabetes mellitus, raised random glucose, and tingling in both feet. Follow-up is planned for glycemic management.",diabetes
+"Recent labs show hyperglycemia and HbA1c above target. He has been advised on carbohydrate control for diabetes management.",diabetes
+"Long-standing diabetic patient presents with blurred vision and poor glucose monitoring at home. Fasting blood sugar is markedly raised.",diabetes
+"Repeated blood pressure readings are above 160 over 100 with occipital headache. The note recommends antihypertensive adjustment and salt restriction.",hypertension
+"History of hypertension with poorly controlled systolic pressure and dizziness. Blood pressure remains elevated during clinic review.",hypertension
+"The patient reports morning headache and high blood pressure on serial checks. Lifestyle advice includes reducing sodium intake.",hypertension
+"Persistent hypertension is noted with home readings above target. Amlodipine adherence has been inconsistent.",hypertension
+"Clinic assessment documents elevated blood pressure and hypertensive urgency symptoms without chest pain. Follow-up monitoring is advised.",hypertension
+"Known hypertensive patient has uncontrolled blood pressure and ankle swelling. Medication review was recommended.",hypertension
+"Creatinine has increased to 2.3 mg per dL with low estimated GFR. The report mentions chronic kidney disease and fluid monitoring.",kidney_disease
+"Renal function is impaired with rising urea and persistent proteinuria. The patient is being followed for kidney disease.",kidney_disease
+"The note describes chronic kidney disease with reduced eGFR and fatigue. Nephrology review is advised.",kidney_disease
+"Serum creatinine remains high and urine output has decreased. Findings are consistent with kidney disease.",kidney_disease
+"Kidney parameters are abnormal with elevated urea, creatinine, and edema. Salt and fluid caution were discussed.",kidney_disease
+"There is renal dysfunction on laboratory review with worsening creatinine trend. Chronic kidney disease is listed in the impression.",kidney_disease
+"Ultrasound and liver enzymes suggest fatty liver with raised ALT and AST. The patient is advised to avoid alcohol.",liver_disease
+"The report notes jaundice, bilirubin elevation, and hepatomegaly. Liver disease evaluation is ongoing.",liver_disease
+"Abnormal liver function tests with elevated transaminases are present. Impression favors chronic liver disease.",liver_disease
+"The patient has hepatitis-related liver disease with fatigue and abdominal discomfort. Bilirubin is mildly raised.",liver_disease
+"Liver profile is deranged with raised SGOT, SGPT, and bilirubin. Follow-up is recommended for liver disease management.",liver_disease
+"Fatty liver changes are documented along with elevated ALT and dietary counseling. Alcohol abstinence has been reinforced.",liver_disease
+"Hemoglobin is 8.4 g per dL with pallor and exertional fatigue. The report impression is iron deficiency anemia.",anemia
+"CBC shows low hemoglobin and microcytic hypochromic indices. The patient is symptomatic from anemia.",anemia
+"The patient complains of weakness and dizziness with a low hemoglobin value. Assessment notes anemia requiring supplementation.",anemia
+"Anemia is documented with reduced hemoglobin and shortness of breath on exertion. Iron studies were advised.",anemia
+"There is persistent low haemoglobin on repeat blood count. The note recommends evaluation for nutritional anemia.",anemia
+"Fatigue, pallor, and low CBC values support a diagnosis of anemia. Oral iron has been prescribed.",anemia
+"Lipid profile reveals markedly elevated LDL and triglycerides. The assessment records high cholesterol.",high_cholesterol
+"The patient has dyslipidemia with increased total cholesterol despite dietary advice. Statin continuation is recommended.",high_cholesterol
+"Follow-up labs show high cholesterol and low HDL. Lifestyle modification was discussed.",high_cholesterol
+"Hyperlipidemia is listed in the impression with raised LDL cholesterol. Weight loss and regular exercise were advised.",high_cholesterol
+"The report documents abnormal lipid profile and persistent high cholesterol. Dietary fat reduction is recommended.",high_cholesterol
+"Cholesterol remains above target with elevated triglycerides and nonadherence to statin therapy.",high_cholesterol
+"TSH is elevated with fatigue, weight gain, and constipation. The findings are consistent with hypothyroid thyroid disorder.",thyroid_disorder
+"The note shows low TSH with palpitations and tremor. Hyperthyroid thyroid disorder is being evaluated.",thyroid_disorder
+"Thyroid profile is abnormal with altered T3 and T4 levels. The patient is on follow-up for thyroid disorder.",thyroid_disorder
+"Symptoms of tiredness and cold intolerance accompany high TSH. The clinician impression is thyroid disorder.",thyroid_disorder
+"A known thyroid disorder patient presents for dose review after abnormal TSH testing. Medication timing was reinforced.",thyroid_disorder
+"The report mentions thyroid enlargement and biochemical thyroid dysfunction. Repeat thyroid profile is advised.",thyroid_disorder
+"Burning epigastric pain worsens after spicy food, and the impression is gastritis. Acid suppression was prescribed.",gastritis
+"The patient has reflux, acidity, and upper abdominal discomfort suggestive of gastritis. Dietary precautions were given.",gastritis
+"Clinical note documents gastritis with bloating and post-meal burning sensation. Smaller meals were advised.",gastritis
+"There is recurrent epigastric discomfort and acid peptic symptoms. The assessment favors gastritis.",gastritis
+"GERD and gastritis symptoms are present with nighttime acidity and nausea. Trigger foods should be avoided.",gastritis
+"Upper abdominal burning and sour belching improved with antacid therapy. Impression remains gastritis.",gastritis

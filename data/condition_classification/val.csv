@@ -1,0 +1,17 @@
+text,label
+"HbA1c remains high with frequent urination and uncontrolled fasting sugar.",diabetes
+"Diabetic follow-up notes hyperglycemia and numbness in the feet.",diabetes
+"Serial readings confirm elevated blood pressure with headache and salt restriction advice.",hypertension
+"Known hypertension with uncontrolled systolic values despite regular tablets.",hypertension
+"Creatinine and urea are raised with reduced eGFR, consistent with kidney disease.",kidney_disease
+"Renal impairment is noted with swelling and abnormal kidney function tests.",kidney_disease
+"Elevated bilirubin and transaminases suggest ongoing liver disease.",liver_disease
+"Fatty liver with raised ALT and abstinence counseling is documented.",liver_disease
+"Low hemoglobin with weakness and pallor indicates anemia.",anemia
+"CBC confirms anemia with low haemoglobin and fatigue.",anemia
+"Lipid profile shows high LDL and triglycerides, supporting high cholesterol.",high_cholesterol
+"Dyslipidemia follow-up notes persistent high cholesterol above goal.",high_cholesterol
+"High TSH with tiredness and weight gain points to thyroid disorder.",thyroid_disorder
+"Abnormal thyroid profile with tremor and palpitations suggests thyroid disorder.",thyroid_disorder
+"Epigastric burning after meals and reflux symptoms are consistent with gastritis.",gastritis
+"Acidity and upper abdominal pain improved with proton pump inhibitor, likely gastritis.",gastritis

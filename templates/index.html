@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Medical Document Summarizer</title>
+    <title>Medical Report Summarizer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
@@ -31,6 +31,7 @@
             padding: 8px 12px;
             margin-bottom: 8px;
             background: #fff;
+            white-space: pre-wrap;
         }
 
         .meta {
@@ -76,7 +77,7 @@
 
 <body>
     <div class="container">
-        <h1>Comprehensive Medical Document Summarizer</h1>
+        <h1>Medical Report Summarizer and Draft Prescription Generator</h1>
 
         <form method="post" enctype="multipart/form-data" id="summ-form">
             <div class="top-row">
@@ -85,14 +86,14 @@
                 <div class="file-info" id="file-info">No file selected</div>
 
                 <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-                    <label for="method">Method:</label>
+                    <label for="method">Mode:</label>
                     <select id="method" name="method">
                         <option value="abstractive" {% if method=='abstractive' %}selected{% endif %}>Abstractive (LLM)
+                        <option value="bilstm" {% if method=='bilstm' %}selected{% endif %}>BiLSTM Extractive</option>
                         <option value="extractive" {% if method=='extractive' %}selected{% endif %}>Extractive
                             (TextRank)</option>
                         <option value="hybrid" {% if method=='hybrid' %}selected{% endif %}>Hybrid (TextRank →
                             Abstractive)</option>
-                        </option>
                     </select>
                 </div>
             </div>
@@ -129,7 +130,10 @@
                     <label for="redact" class="small-muted">Attempt PHI redaction before external calls</label>
                 </div>
 
-                <button type="submit" class="btn" style="margin-left:auto;">Summarize</button>
+                <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
+                    <button type="submit" class="btn" name="submit_action" value="generate">Generate</button>
+                    <button type="submit" class="btn" name="submit_action" value="prescription">Prescription</button>
+                </div>
             </div>
 
             <hr style="margin:14px 0;" />
@@ -140,7 +144,8 @@
                 placeholder="Paste medical reports, clinical notes, or article text...">{{ pasted_text or '' }}</textarea>
 
             <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
-                <button type="submit" class="btn">Summarize</button>
+                <button type="submit" class="btn" name="submit_action" value="generate">Generate</button>
+                <button type="submit" class="btn" name="submit_action" value="prescription">Prescription</button>
                 <button type="button" id="clear-text" class="btn btn-secondary">Clear text</button>
                 <div class="small-muted" style="margin-left:auto;">Tip: paste text OR upload a file — not both.</div>
             </div>
@@ -173,17 +178,40 @@
         <!-- Show the extractive seed if backend provides it -->
         {% if extractive_seed %}
         <div class="result" style="margin-top:18px;">
-            <h2>Extractive seed (TextRank)</h2>
+            <h2>Extractive seed ({% if method == "bilstm" %}BiLSTM{% else %}TextRank{% endif %})</h2>
+            {% if method == "bilstm" %}
+            <p class="small-muted">Top salient sentences selected by the BiLSTM sentence ranker trained on the current
+                report's sentence sequence.</p>
+            {% else %}
             <p class="small-muted">Top salient sentences selected by TextRank (used as the seed for
                 retrieval/abstractive summarization).</p>
+            {% endif %}
             <div class="chunk">{{ extractive_seed }}</div>
+        </div>
+        {% endif %}
+
+        {% if classification_result or (summary is not none and classification_error) %}
+        <div class="result" style="margin-top:18px;">
+            <h2>Condition classification</h2>
+            {% if classification_result %}
+            <div class="prediction-card">
+                <div class="prediction-badge">{{ classification_result.label }}</div>
+                <div class="small-muted">Similarity score: {{ '%.3f'|format(classification_result.score) }}</div>
+                <div class="small-muted">Model: {{ classification_result.model_path }}</div>
+            </div>
+            <p class="small-muted">This is a lightweight document-level prediction from the locally trained classifier,
+                not a diagnosis.</p>
+            {% elif classification_error %}
+            <p class="small-muted">Classification unavailable: {{ classification_error }}</p>
+            {% endif %}
         </div>
         {% endif %}
 
         <!-- Final summary -->
         {% if summary is not none %}
         <div class="result" style="margin-top:18px;">
-            <h2>Summary <small class="small-muted">({{ method }})</small></h2>
+            <h2>{% if method == "prescription" %}Prescription draft{% else %}Summary{% endif %} <small
+                    class="small-muted">({{ method }})</small></h2>
             <div class="meta" style="justify-content:space-between;">
                 <div class="small-muted">Summary produced on {{ (now() if now is defined else '') }}</div>
                 <div class="small-muted">Model: {{ summary_model if summary_model is defined else 'local/default' }}
@@ -205,7 +233,14 @@
             {% if sources %}
             <div class="support-list">
                 <h3 style="margin-top:12px;">Supporting chunks / sources</h3>
-                <p class="small-muted">Click to expand the supporting chunk text.</p>
+                <p class="small-muted">
+                    {% if method == "hybrid" %}
+                    Showing {{ sources|length }} chunk{{ '' if sources|length == 1 else 's' }} selected automatically
+                    from the document size. Click to expand the supporting text.
+                    {% else %}
+                    Click to expand the supporting chunk text.
+                    {% endif %}
+                </p>
                 <div>
                     {% for s in sources %}
                     <div style="margin-bottom:10px;">
@@ -235,8 +270,9 @@
         {% endif %}
 
         <footer style="margin-top:26px; font-size:0.9rem; color:#666;">
-            <p>Note: This tool is for prototyping and research. Do not use summaries for clinical decision-making
-                without clinician review. Toggle <span class="code">On-premise only</span> to prevent sending data to
+            <p>Note: This tool is for prototyping and research. Summaries and draft prescriptions require licensed
+                clinician review before any clinical use. Toggle <span class="code">On-premise only</span> to prevent
+                sending data to
                 external APIs.</p>
         </footer>
     </div>

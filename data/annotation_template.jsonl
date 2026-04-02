@@ -1,0 +1,2 @@
+{"report_id":"YOUR-ID-001","report_type":"discharge_summary","text":"Paste the full de-identified report text here.","summary":"Write a faithful 2-4 sentence summary here.","oracle_sentence_ids":[0,2,4],"review_status":"draft"}
+{"report_id":"YOUR-ID-002","report_type":"lab_summary","text":"Paste another de-identified report here.","summary":"Write the gold summary here.","oracle_sentence_ids":[],"review_status":"reviewed"}

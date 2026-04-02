@@ -1,9 +1,9 @@
 # chunker.py
-from nltk.tokenize import sent_tokenize
+import nltk.tokenize
 from typing import List
 
 def chunk_text_by_sentences(text: str, max_words: int = 600, overlap_words: int = 100) -> List[str]:
-    sents = sent_tokenize(text)
+    sents = nltk.tokenize.sent_tokenize(text)
     chunks = []
     cur = []
     cur_len = 0

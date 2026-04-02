@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Generated Prescription Draft</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 6px;
+            background: #6c757d;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .small-muted {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .chunk {
+            border-left: 3px solid #eee;
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: #fff;
+            white-space: pre-wrap;
+        }
+
+        .meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .section {
+            margin-top: 18px;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 14px;
+        }
+
+        .patient-detail-list {
+            margin: 0;
+            padding: 0;
+        }
+
+        .patient-detail-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .patient-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .medication-card {
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 12px;
+            background: #fff;
+            margin-top: 10px;
+        }
+
+        .medication-card h3 {
+            margin: 0 0 10px;
+        }
+
+        .label {
+            font-weight: 700;
+        }
+
+        ul.clean-list {
+            margin: 8px 0 0;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-header">
+            <div>
+                <h1>{{ prescription.hospital_name if prescription and prescription.hospital_name else 'Medical Center'
+                    }}</h1>
+                <p class="small-muted">Draft for clinician review only. This page is separate from the summarizer form
+                    so the generated prescription is easier to read and share.</p>
+            </div>
+            <div class="page-actions">
+                <a href="{{ url_for('index') }}" class="link-btn">Back to generator</a>
+                <button class="btn" type="button" onclick="window.print()">Print</button>
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="meta" style="justify-content:space-between;">
+                <div class="small-muted">Generated prescription draft</div>
+                <div class="small-muted">Model: {{ summary_model if summary_model else 'local/default' }}</div>
+            </div>
+
+            {% if classification_result or classification_error %}
+            <div class="section">
+                <h2>Condition classification</h2>
+                {% if classification_result %}
+                <div class="prediction-card">
+                    <div class="prediction-badge">{{ classification_result.label }}</div>
+                    <div class="small-muted">Similarity score: {{ '%.3f'|format(classification_result.score) }}</div>
+                    <div class="small-muted">Model: {{ classification_result.model_path }}</div>
+                </div>
+                <p class="small-muted">This document-level prediction is shown as supporting context only and does not
+                    replace clinician judgment.</p>
+                {% elif classification_error %}
+                <p class="small-muted">Classification unavailable: {{ classification_error }}</p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if prescription %}
+            <div class="section">
+                <h2>Patient Details</h2>
+                <div class="info-grid">
+                    <div>
+                        <div class="chunk">
+                            <div class="patient-detail-list">
+                                <div class="patient-detail-row"><span class="label">Name</span><span>: {{
+                                        prescription.patient_details.name }}</span></div>
+                                <div class="patient-detail-row"><span class="label">Age</span><span>: {{
+                                        prescription.patient_details.age }}</span></div>
+                                <div class="patient-detail-row"><span class="label">Sex</span><span>: {{
+                                        prescription.patient_details.sex }}</span></div>
+                                <div class="patient-detail-row"><span class="label">DOB</span><span>: {{
+                                        prescription.patient_details.dob }}</span></div>
+                                <div class="patient-detail-row"><span class="label">Patient ID</span><span>: {{
+                                        prescription.patient_details.patient_id }}</span></div>
+                                <div class="patient-detail-row"><span class="label">Doctor</span><span>: {{
+                                        prescription.patient_details.doctor }}</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="small-muted">Short patient snapshot</div>
+                        <div class="chunk">{{ prescription.patient_summary }}</div>
+                    </div>
+
+                    {% if prescription.diagnosis_basis %}
+                    <div>
+                        <div class="label">Clinical basis</div>
+                        <ul class="clean-list">
+                            {% for item in prescription.diagnosis_basis %}
+                            <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if prescription.tests_reviewed %}
+                    <div>
+                        <div class="label">Tests reviewed</div>
+                        <ul class="clean-list">
+                            {% for item in prescription.tests_reviewed %}
+                            <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+
+                    {% if prescription.missing_information %}
+                    <div>
+                        <div class="label">Missing information before prescribing</div>
+                        <ul class="clean-list">
+                            {% for item in prescription.missing_information %}
+                            <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Needed Prescription</h2>
+                {% if prescription.medications %}
+                {% for medication in prescription.medications %}
+                <div class="medication-card">
+                    <h3>{{ medication.name or 'Medication not specified' }}</h3>
+                    <p><span class="label">Indication:</span> {{ medication.indication or 'insufficient information' }}
+                    </p>
+                    <p><span class="label">Dosage:</span> {{ medication.dosage or 'insufficient information' }}</p>
+                    <p><span class="label">Frequency:</span> {{ medication.frequency or 'insufficient information' }}
+                    </p>
+                    <p><span class="label">Duration:</span> {{ medication.duration or 'insufficient information' }}</p>
+                    <p><span class="label">Route:</span> {{ medication.route or 'insufficient information' }}</p>
+                    <p><span class="label">Instructions:</span> {{ medication.instructions or 'insufficient information'
+                        }}</p>
+                    <p><span class="label">Status:</span> {{ medication.status or 'insufficient_information' }}</p>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="chunk">No medication recommendation generated because the report did not include enough
+                    prescribing details.</div>
+                {% endif %}
+            </div>
+
+            {% if prescription.food_habits %}
+            <div class="section">
+                <h2>Food Habits</h2>
+                <ul class="clean-list">
+                    {% for item in prescription.food_habits %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if prescription.lifestyle_plan %}
+            <div class="section">
+                <h2>Lifestyle Plan</h2>
+                <ul class="clean-list">
+                    {% for item in prescription.lifestyle_plan %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if prescription.non_medication_care %}
+            <div class="section">
+                <h2>Additional Care</h2>
+                <ul class="clean-list">
+                    {% for item in prescription.non_medication_care %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if prescription.monitoring %}
+            <div class="section">
+                <h2>Monitoring</h2>
+                <ul class="clean-list">
+                    {% for item in prescription.monitoring %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if prescription.warnings %}
+            <div class="section">
+                <h2>Safety Warnings</h2>
+                <ul class="clean-list">
+                    {% for item in prescription.warnings %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="section">
+                <h2>Review Required</h2>
+                <div class="chunk">{{ prescription.review_required }}</div>
+            </div>
+            {% else %}
+            <div class="section">
+                <div class="chunk">{{ prescription_text }}</div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
