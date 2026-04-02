@@ -1,6 +1,9 @@
 # app.py
+import io
 import os
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+import re
+import uuid
+from flask import Flask, render_template, request, redirect, url_for, flash, session, send_file
 from dotenv import load_dotenv
 from summarizer import HybridSummarizer
 from io_utils import extract_text_from_file
@@ -12,8 +15,10 @@ from prescription import (
     extract_medications_from_text,
     build_fallback_payload,
     build_lifestyle_recommendations,
+    build_prescription_pdf,
     build_prescription_text,
     build_test_based_monitoring,
+    build_precautions,
     extract_hospital_name,
     extract_patient_details,
     extract_report_signals,
@@ -33,6 +38,7 @@ vector_store = FaissStore()  # keep in memory per process; index will be built p
 classifier_model_path = os.environ.get("CLASSIFIER_MODEL_PATH", "models/condition_classifier.json")
 condition_classifier = None
 classifier_load_error = None
+prescription_download_cache = {}
 
 
 def get_condition_classifier():
@@ -84,6 +90,59 @@ def build_index_context(**overrides):
     }
     context.update(overrides)
     return context
+
+def _extract_summary_points(summary):
+    if not isinstance(summary, str):
+        return []
+    points = []
+    for line in summary.splitlines():
+        cleaned = line.strip()
+        if cleaned.startswith("- "):
+            points.append(cleaned[2:].strip())
+    return points
+
+def _safe_download_stem(prescription):
+    patient_name = ''
+    if isinstance(prescription, dict):
+        patient_details = prescription.get('patient_details') or {}
+        patient_name = patient_details.get('name') or ''
+    if patient_name and patient_name.lower() != 'not provided':
+        stem = 'prescription_' + patient_name.lower().replace(' ', '_')
+    else:
+        stem = 'prescription_draft'
+    stem = re.sub(r'[^a-z0-9_]+', '_', stem.lower()).strip('_')
+    return stem or 'prescription_draft'
+
+def _store_latest_prescription(prescription, prescription_text, summary_model):
+    previous_key = session.get('latest_prescription_key')
+    if previous_key:
+        prescription_download_cache.pop(previous_key, None)
+
+    cache_key = str(uuid.uuid4())
+    prescription_download_cache[cache_key] = {
+        'prescription': prescription,
+        'prescription_text': prescription_text,
+        'summary_model': summary_model or 'local/default',
+    }
+    session['latest_prescription_key'] = cache_key
+
+def _clear_latest_prescription():
+    cache_key = session.pop('latest_prescription_key', None)
+    if cache_key:
+        prescription_download_cache.pop(cache_key, None)
+
+def _get_latest_prescription():
+    cache_key = session.get('latest_prescription_key')
+    if not cache_key:
+        return None, None, None
+    cached = prescription_download_cache.get(cache_key)
+    if not cached:
+        return None, None, None
+    return (
+        cached.get('prescription'),
+        cached.get('prescription_text'),
+        cached.get('summary_model', 'local/default'),
+    )
 
 @app.route("/", methods=["GET"])
 def index():
@@ -175,11 +234,18 @@ def summarize_route():
             fallback_payload["diagnosis_basis"] = extract_diagnosis_basis(text_to_summarize, signals)
             fallback_payload["tests_reviewed"] = list(signals.get("tests", []))
             fallback_payload["medications"] = extract_medications_from_text(text_to_summarize, signals)
+            fallback_payload["precautions"] = build_precautions(signals, fallback_payload["medications"])
             fallback_payload["food_habits"] = build_diet_recommendations(signals)
             fallback_payload["lifestyle_plan"] = build_lifestyle_recommendations(signals)
             fallback_payload["monitoring"] = build_test_based_monitoring(signals)
+            prescription_text = build_prescription_text(fallback_payload)
+            _store_latest_prescription(
+                fallback_payload,
+                prescription_text,
+                "embedding-guided-prescription-fallback",
+            )
             return render_template("prescription.html",
-                                   prescription_text=build_prescription_text(fallback_payload),
+                                   prescription_text=prescription_text,
                                    prescription=fallback_payload,
                                    summary_model="embedding-guided-prescription-fallback",
                                    classification_result=classification_result,
@@ -195,6 +261,7 @@ def summarize_route():
                                    extracted_text=extracted_text,
                                    uploaded_filename=session.get("uploaded_filename", ""),
                                    summary=summary_text,
+                                   summary_points=_extract_summary_points(summary_text),
                                    method="extractive",
                                    extractive_seed=None,
                                    sources=None,
@@ -217,6 +284,8 @@ def summarize_route():
         prescription_data = None
 
     if method == "prescription":
+        if prescription_data and summary_text:
+            _store_latest_prescription(prescription_data, summary_text, model_name)
         return render_template("prescription.html",
                                prescription_text=summary_text,
                                prescription=prescription_data,
@@ -233,6 +302,7 @@ def summarize_route():
                                extracted_text=extracted_text,
                                uploaded_filename=session.get("uploaded_filename", ""),
                                summary=summary_text,
+                               summary_points=_extract_summary_points(summary_text),
                                method=method,
                                extractive_seed=extractive_seed,
                                sources=sources,
@@ -241,11 +311,48 @@ def summarize_route():
                            ))
 
 
+@app.route("/prescription/download.txt", methods=["GET"])
+def download_prescription_text():
+    prescription, prescription_text, _ = _get_latest_prescription()
+    if not prescription or not prescription_text:
+        flash("Generate a prescription draft before downloading it.", "warning")
+        return redirect(url_for("index"))
+    download_name = _safe_download_stem(prescription) + ".txt"
+    return send_file(
+        io.BytesIO(prescription_text.encode("utf-8")),
+        mimetype="text/plain; charset=utf-8",
+        as_attachment=True,
+        download_name=download_name,
+    )
+
+
+@app.route("/prescription/download.pdf", methods=["GET"])
+def download_prescription_pdf():
+    prescription, _, _ = _get_latest_prescription()
+    if not prescription:
+        flash("Generate a prescription draft before downloading it.", "warning")
+        return redirect(url_for("index"))
+    try:
+        pdf_bytes = build_prescription_pdf(prescription)
+    except Exception as exc:
+        app.logger.warning("Prescription PDF generation failed: %s", exc)
+        flash(f"Could not generate PDF: {exc}", "danger")
+        return redirect(url_for("index"))
+    download_name = _safe_download_stem(prescription) + ".pdf"
+    return send_file(
+        io.BytesIO(pdf_bytes),
+        mimetype="application/pdf",
+        as_attachment=True,
+        download_name=download_name,
+    )
+
+
 @app.route("/clear", methods=["POST"])
 def clear_stored():
     # Clears stored extracted text and filename from session
     session.pop("extracted_text", None)
     session.pop("uploaded_filename", None)
+    _clear_latest_prescription()
     flash("Stored file/text cleared.", "info")
     return redirect(url_for("index"))
 

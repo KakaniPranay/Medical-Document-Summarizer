@@ -1,6 +1,8 @@
+import io
 import json 
 import logging 
 import re
+import textwrap
  
 logger = logging.getLogger(__name__) 
  
@@ -51,6 +53,27 @@ DIET_GUIDANCE_RULES = {
     'gastritis': [
         'Avoid foods that trigger burning or acidity, especially very spicy, oily, or late-night meals.',
         'Prefer smaller, simpler meals if heavy meals worsen symptoms.',
+    ],
+}
+
+EDUCATIONAL_TABLET_OPTIONS = {
+    'diabetes': [
+        {'name': 'Metformin', 'use': 'Commonly used for type 2 diabetes', 'warning': 'Educational example only. Final medicine choice depends on kidney function, tolerance, and clinician review.'},
+    ],
+    'hypertension': [
+        {'name': 'Amlodipine', 'use': 'Commonly used for high blood pressure', 'warning': 'Educational example only. Blood pressure pattern, swelling risk, and clinician review matter.'},
+    ],
+    'high cholesterol': [
+        {'name': 'Atorvastatin', 'use': 'Commonly used to lower cholesterol', 'warning': 'Educational example only. Liver history, interactions, and clinician review matter.'},
+    ],
+    'thyroid disorder': [
+        {'name': 'Levothyroxine', 'use': 'Commonly used for hypothyroidism', 'warning': 'Educational example only. Dose selection depends on thyroid tests and clinician review.'},
+    ],
+    'gastritis': [
+        {'name': 'Pantoprazole', 'use': 'Commonly used to reduce stomach acid symptoms', 'warning': 'Educational example only. The underlying cause still needs clinician assessment.'},
+    ],
+    'anemia': [
+        {'name': 'Ferrous sulfate', 'use': 'Commonly used for iron deficiency anemia', 'warning': 'Educational example only. The cause of anemia should be confirmed before treatment.'},
     ],
 }
 
@@ -315,6 +338,62 @@ def normalize_medications(value):
             medications.append(medication) 
     return medications
 
+def normalize_educational_examples(value):
+    examples = []
+    if not isinstance(value, list):
+        return examples
+    for item in value:
+        if isinstance(item, str):
+            item = {'name': item}
+        if not isinstance(item, dict):
+            continue
+        example = {
+            'name': str(item.get('name', '')).strip(),
+            'use': str(item.get('use', '')).strip(),
+            'warning': str(item.get('warning', '')).strip(),
+        }
+        if example['name'] and example['name'].lower() not in [entry['name'].lower() for entry in examples]:
+            examples.append(example)
+    return examples
+
+def build_educational_tablet_examples(signals):
+    examples = []
+    for condition in signals.get('conditions', []):
+        for item in EDUCATIONAL_TABLET_OPTIONS.get(condition, []):
+            name = item.get('name', '').strip()
+            if name and name.lower() not in [entry['name'].lower() for entry in examples]:
+                examples.append(dict(item))
+    return examples
+
+def build_precautions(signals, medications=None):
+    precautions = [
+        'Confirm allergies, contraindications, drug interactions, renal and hepatic function, and pregnancy status where relevant before issuing the final prescription.',
+        'Match every tablet, dose, frequency, and duration against the treating clinician\'s latest assessment and the most recent report values.',
+    ]
+    conditions = signals.get('conditions', []) if isinstance(signals, dict) else []
+    tests = signals.get('tests', []) if isinstance(signals, dict) else []
+    medications = medications or []
+
+    if tests:
+        precautions.append('Review the available ' + ', '.join(tests) + ' before finalizing the medication plan.')
+    if 'kidney disease' in conditions:
+        precautions.append('Check renal dosing and avoid nephrotoxic medicines unless the clinician has specifically approved them.')
+    if 'liver disease' in conditions:
+        precautions.append('Check hepatic dosing and avoid medicines with liver-related contraindications unless cleared by the clinician.')
+    if 'diabetes' in conditions:
+        precautions.append('Confirm the patient understands glucose monitoring, meal timing, and when to seek care for hypo- or hyperglycemia symptoms.')
+    if 'hypertension' in conditions:
+        precautions.append('Recheck blood pressure trends and symptoms such as dizziness before confirming antihypertensive therapy.')
+    if any('food' in (item.get('instructions') or '').lower() for item in medications if isinstance(item, dict)):
+        precautions.append('Counsel the patient to follow the meal-related instructions exactly as written for each tablet.')
+
+    deduped = []
+    for item in precautions:
+        cleaned = clean_extracted_value(item)
+        if cleaned and cleaned not in deduped:
+            deduped.append(cleaned)
+    return deduped
+
 def extract_report_signals(text):
     lowered = (text or '').lower()
     conditions = []
@@ -480,6 +559,11 @@ def build_fallback_payload(patient_summary, patient_details=None, hospital_name=
         'diagnosis_basis': [], 
         'tests_reviewed': [],
         'medications': [], 
+        'educational_tablet_examples': [],
+        'precautions': [
+            'Confirm allergies, contraindications, drug interactions, renal and hepatic function, and pregnancy status where relevant before issuing the final prescription.',
+            'Match every tablet, dose, frequency, and duration against the treating clinician\'s latest assessment and the most recent report values.',
+        ],
         'non_medication_care': [ 
             'Insufficient information to generate a medication plan safely.', 
             'Use the uploaded report summary to support clinician review and manual prescribing.', 
@@ -504,6 +588,8 @@ def normalize_payload(payload, patient_summary, patient_details=None, hospital_n
         'diagnosis_basis': normalize_list(data.get('diagnosis_basis')), 
         'tests_reviewed': normalize_list(data.get('tests_reviewed')),
         'medications': normalize_medications(data.get('medications')), 
+        'educational_tablet_examples': normalize_educational_examples(data.get('educational_tablet_examples')),
+        'precautions': normalize_list(data.get('precautions')) or fallback['precautions'],
         'non_medication_care': normalize_list(data.get('non_medication_care')), 
         'food_habits': normalize_list(data.get('food_habits')) or fallback['food_habits'],
         'lifestyle_plan': normalize_list(data.get('lifestyle_plan')) or fallback['lifestyle_plan'],
@@ -545,7 +631,17 @@ def build_prescription_text(payload):
             lines.append('   Status: ' + (medication.get('status') or 'insufficient_information')) 
     else: 
         lines.append('No medication recommendation generated because the report did not include enough prescribing details.') 
-    for section_title, items in [('Clinical basis:', payload.get('diagnosis_basis')), ('Tests reviewed:', payload.get('tests_reviewed')), ('Food habits:', payload.get('food_habits')), ('Lifestyle plan:', payload.get('lifestyle_plan')), ('Non-medication care:', payload.get('non_medication_care')), ('Monitoring:', payload.get('monitoring')), ('Missing information before prescribing:', payload.get('missing_information')), ('Safety warnings:', payload.get('warnings'))]: 
+    educational_examples = payload.get('educational_tablet_examples') or []
+    lines.append('')
+    lines.append('General educational tablet examples (not a prescription):')
+    if educational_examples:
+        for index, example in enumerate(educational_examples, start=1):
+            lines.append(str(index) + '. ' + (example.get('name') or 'Example not specified'))
+            lines.append('   General use: ' + (example.get('use') or 'general educational example'))
+            lines.append('   Warning: ' + (example.get('warning') or 'Educational example only. A clinician must decide whether it is appropriate.'))
+    else:
+        lines.append('No general educational tablet examples were added because the report did not clearly match a supported condition.')
+    for section_title, items in [('Diagnosis:', payload.get('diagnosis_basis')), ('Tests reviewed:', payload.get('tests_reviewed')), ('Precautions:', payload.get('precautions')), ('Food habits:', payload.get('food_habits')), ('Lifestyle plan:', payload.get('lifestyle_plan')), ('Non-medication care:', payload.get('non_medication_care')), ('Monitoring:', payload.get('monitoring')), ('Missing information before prescribing:', payload.get('missing_information')), ('Safety warnings:', payload.get('warnings'))]: 
         lines.append('') 
         lines.append(section_title) 
         if items: 
@@ -557,6 +653,35 @@ def build_prescription_text(payload):
     lines.append('Review required:') 
     lines.append(payload.get('review_required') or 'Clinician review required.') 
     return '\n'.join(lines)
+
+def build_prescription_pdf(payload):
+    try:
+        from reportlab.lib.pagesizes import A4
+        from reportlab.pdfgen import canvas
+    except ImportError as exc:
+        raise RuntimeError('PDF export requires reportlab to be installed.') from exc
+
+    buffer = io.BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=A4)
+    width, height = A4
+    left_margin = 40
+    top_margin = 50
+    line_height = 14
+    max_chars = 100
+    y_position = height - top_margin
+
+    text_lines = build_prescription_text(payload).splitlines()
+    for raw_line in text_lines:
+        wrapped_lines = textwrap.wrap(raw_line, width=max_chars) or ['']
+        for line in wrapped_lines:
+            if y_position <= top_margin:
+                pdf.showPage()
+                y_position = height - top_margin
+            pdf.drawString(left_margin, y_position, line)
+            y_position -= line_height
+
+    pdf.save()
+    return buffer.getvalue()
  
 def generate_prescription_result(summarizer, text, on_premise=False, vector_store=None): 
     try:
@@ -590,6 +715,8 @@ def generate_prescription_result(summarizer, text, on_premise=False, vector_stor
         payload['diagnosis_basis'] = extract_diagnosis_basis(text_clean, signals)
         payload['tests_reviewed'] = list(signals.get('tests', []))
         payload['medications'] = extract_medications_from_text(text_clean, signals)
+        payload['educational_tablet_examples'] = build_educational_tablet_examples(signals)
+        payload['precautions'] = build_precautions(signals, payload['medications'])
         payload['food_habits'] = build_diet_recommendations(signals)
         payload['lifestyle_plan'] = build_lifestyle_recommendations(signals)
         payload['monitoring'] = build_test_based_monitoring(signals)
@@ -605,9 +732,10 @@ def generate_prescription_result(summarizer, text, on_premise=False, vector_stor
                 'You are assisting a licensed clinician. Use only the provided context from the uploaded report. '
                 'Do not invent hospital name, patient demographics, diagnoses, medications, doses, durations, routes, or contraindications. '
                 'If a field is not present in the report, return "Not provided" for patient details and leave medication fields as "insufficient information". '
-                'Return JSON only with keys hospital_name, patient_details, patient_summary, diagnosis_basis, tests_reviewed, medications, food_habits, lifestyle_plan, non_medication_care, monitoring, warnings, missing_information, review_required. '
+                'Return JSON only with keys hospital_name, patient_details, patient_summary, diagnosis_basis, tests_reviewed, medications, precautions, food_habits, lifestyle_plan, non_medication_care, monitoring, warnings, missing_information, review_required. '
                 'patient_details must be an object with keys name, age, sex, dob, patient_id, doctor. '
                 'For medications, include how the patient should take them if the report provides timing or meal-related instructions. '
+                'For precautions, provide short clinician-review safety checks tied to the report and proposed tablets. '
                 'For food_habits and lifestyle_plan, base the advice only on diseases, symptoms, and tests explicitly mentioned in the report.'
                 + '\n\nContext:\n' + '\n\n'.join(context_parts)
             )
@@ -619,6 +747,7 @@ def generate_prescription_result(summarizer, text, on_premise=False, vector_stor
                     patient_details=patient_details,
                     hospital_name=hospital_name,
                 ) 
+                payload['educational_tablet_examples'] = build_educational_tablet_examples(signals)
                 model_name = 'openai-prescription' 
             except Exception as exc: 
                 logger.warning('Prescription draft generation failed, using fallback: %s', exc) 
@@ -637,6 +766,8 @@ def generate_prescription_result(summarizer, text, on_premise=False, vector_stor
         fallback_payload['diagnosis_basis'] = extract_diagnosis_basis(text, fallback_signals)
         fallback_payload['tests_reviewed'] = list(fallback_signals.get('tests', []))
         fallback_payload['medications'] = extract_medications_from_text(text, fallback_signals)
+        fallback_payload['educational_tablet_examples'] = build_educational_tablet_examples(fallback_signals)
+        fallback_payload['precautions'] = build_precautions(fallback_signals, fallback_payload['medications'])
         fallback_payload['food_habits'] = build_diet_recommendations(fallback_signals)
         fallback_payload['lifestyle_plan'] = build_lifestyle_recommendations(fallback_signals)
         fallback_payload['monitoring'] = build_test_based_monitoring(fallback_signals)

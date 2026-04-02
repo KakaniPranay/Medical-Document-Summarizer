@@ -14,3 +14,4 @@ Pillow
 faiss-cpu
 rouge-score
 pytest
+reportlab

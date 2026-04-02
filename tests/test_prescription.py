@@ -1,4 +1,6 @@
-from prescription import build_diet_recommendations, build_prescription_text, extract_diagnosis_basis, extract_hospital_name, extract_json_object, extract_medications_from_text, extract_patient_details, extract_report_signals, normalize_payload 
+import pytest
+
+from prescription import build_diet_recommendations, build_educational_tablet_examples, build_precautions, build_prescription_pdf, build_prescription_text, extract_diagnosis_basis, extract_hospital_name, extract_json_object, extract_medications_from_text, extract_patient_details, extract_report_signals, normalize_payload 
  
 def test_extract_json_object_from_fenced_block(): 
     raw = '```json\n{\"patient_summary\": \"Stable\"}\n```' 
@@ -9,8 +11,10 @@ def test_normalize_payload_adds_defaults_and_formats_text():
     assert payload['patient_summary'] == 'Fever and cough' 
     assert payload['medications'][0]['name'] == 'Paracetamol' 
     assert payload['missing_information'] 
+    assert payload['precautions']
     text_output = build_prescription_text(payload) 
     assert 'Draft prescription for clinician review:' in text_output
+    assert 'Precautions:' in text_output
 
 def test_extract_hospital_name_prefers_known_list_match():
     report = 'Discharge Summary Apollo Hospitals Name: Jane Doe Age: 45 years'
@@ -46,3 +50,57 @@ def test_extract_patient_details_prefers_labeled_fields():
     assert '45' in details['age']
     assert details['sex'].lower() == 'male'
     assert details['patient_id'] == 'AB1234'
+
+def test_build_precautions_uses_conditions_tests_and_meal_timing():
+    signals = {
+        'conditions': ['diabetes', 'kidney disease'],
+        'tests': ['blood sugar tests', 'kidney function tests'],
+    }
+    medications = [
+        {
+            'name': 'Metformin',
+            'instructions': 'Take after food.',
+        }
+    ]
+
+    precautions = build_precautions(signals, medications)
+
+    assert any('blood sugar tests' in item.lower() for item in precautions)
+    assert any('renal dosing' in item.lower() for item in precautions)
+    assert any('meal-related instructions' in item.lower() for item in precautions)
+
+def test_build_educational_tablet_examples_are_condition_based():
+    examples = build_educational_tablet_examples(
+        {'conditions': ['diabetes', 'hypertension'], 'tests': []}
+    )
+
+    names = [item['name'].lower() for item in examples]
+
+    assert 'metformin' in names
+    assert 'amlodipine' in names
+    assert all('educational' in item['warning'].lower() for item in examples)
+
+def test_build_prescription_pdf_returns_pdf_bytes():
+    pytest.importorskip('reportlab')
+    payload = normalize_payload(
+        {
+            'patient_summary': 'Type 2 diabetes with elevated blood sugar.',
+            'diagnosis_basis': ['Type 2 diabetes mellitus'],
+            'medications': [
+                {
+                    'name': 'Metformin',
+                    'dosage': '500 mg',
+                    'frequency': 'BD',
+                    'duration': 'for 30 days',
+                    'route': 'oral',
+                    'instructions': 'Take after food.',
+                    'status': 'report-derived',
+                }
+            ],
+        },
+        'Fallback summary',
+    )
+
+    pdf_bytes = build_prescription_pdf(payload)
+
+    assert pdf_bytes.startswith(b'%PDF')

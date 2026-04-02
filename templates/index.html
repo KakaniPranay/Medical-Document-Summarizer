@@ -6,154 +6,150 @@
     <title>Medical Report Summarizer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        /* small inline tweaks */
-        .top-row {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-bottom: 12px;
-        }
-
-        .file-info {
-            font-size: 0.9rem;
-            color: #444;
-        }
-
-        .small-muted {
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        .chunk {
-            border-left: 3px solid #eee;
-            padding: 8px 12px;
-            margin-bottom: 8px;
-            background: #fff;
-            white-space: pre-wrap;
-        }
-
-        .meta {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-
-        .toggle {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .support-list {
-            margin-top: 8px;
-        }
-
-        .code {
-            font-family: monospace;
-            background: #f6f8fa;
-            padding: 4px 6px;
-            border-radius: 4px;
-        }
-
-        textarea#extracted {
-            height: 120px;
-            resize: vertical;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Medical Report Summarizer and Draft Prescription Generator</h1>
-
-        <form method="post" enctype="multipart/form-data" id="summ-form">
-            <div class="top-row">
-                <label for="file" style="margin-right:6px;">Upload file</label>
-                <input type="file" id="file" name="file" accept=".pdf,.docx,.txt,.png,.jpg,.jpeg" />
-                <div class="file-info" id="file-info">No file selected</div>
-
-                <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-                    <label for="method">Mode:</label>
-                    <select id="method" name="method">
-                        <option value="abstractive" {% if method=='abstractive' %}selected{% endif %}>Abstractive (LLM)
-                        <option value="bilstm" {% if method=='bilstm' %}selected{% endif %}>BiLSTM Extractive</option>
-                        <option value="extractive" {% if method=='extractive' %}selected{% endif %}>Extractive
-                            (TextRank)</option>
-                        <option value="hybrid" {% if method=='hybrid' %}selected{% endif %}>Hybrid (TextRank →
-                            Abstractive)</option>
-                    </select>
+    <div class="app-shell">
+        <section class="hero">
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <div class="page-kicker">Clinical Review Workspace</div>
+                    <h1>Summarize reports and prepare a safer clinician-review draft.</h1>
+                    <p>Upload a file or paste report text to generate extractive, hybrid, or educational prescription
+                        output. The interface keeps the workflow focused on review, not blind automation.</p>
+                    <div class="hero-badges">
+                        <span class="hero-chip">PDF, DOCX, TXT, and image input</span>
+                        <span class="hero-chip">Local classifier support</span>
+                        <span class="hero-chip">Educational medication context</span>
+                    </div>
+                </div>
+                <div class="hero-side">
+                    <div class="stat-card">
+                        <span class="stat-label">Current Mode</span>
+                        <span class="stat-value">{{ method|default('hybrid')|capitalize }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Stored File</span>
+                        <span class="stat-value">{{ uploaded_filename if uploaded_filename else 'None Yet' }}</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Safety Focus</span>
+                        <span class="stat-value">Clinician review remains required</span>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- inside the form, near file-info -->
-            <div style="display:flex; gap:12px; align-items:center;">
-                <div class="file-info" id="file-info">
-                    {% if uploaded_filename %}
-                    Stored file: <strong>{{ uploaded_filename }}</strong>
-                    {% else %}
-                    No file selected
-                    {% endif %}
-                </div>
+        <div class="layout-grid">
+            <section class="panel">
+                <h2>Input</h2>
+                <p class="panel-intro">Choose the summarization mode, add your report, and generate either a summary or
+                    a clinician-review prescription draft.</p>
 
-                {% if uploaded_filename %}
-                <!-- Button to clear stored extracted text (posts to /clear).
-                     Use a submit button with formaction to avoid nested forms which break
-                     submit behavior in browsers. -->
-                <button type="submit" formaction="{{ url_for('clear_stored') }}" formmethod="post"
-                    class="btn btn-secondary" style="margin-left:8px;">Clear stored file</button>
-                {% endif %}
-            </div>
+                <form method="post" enctype="multipart/form-data" id="summ-form" class="stack">
+                    <div class="field-grid two-col">
+                        <div class="field">
+                            <label for="file">Upload report</label>
+                            <input type="file" id="file" name="file" accept=".pdf,.docx,.txt,.png,.jpg,.jpeg" />
+                            <div class="file-status" id="file-info">
+                                {% if uploaded_filename %}
+                                Stored file: <strong>{{ uploaded_filename }}</strong>
+                                {% else %}
+                                No file selected
+                                {% endif %}
+                            </div>
+                        </div>
 
-            <div class="meta">
-                <div class="toggle">
-                    <input type="checkbox" id="on_prem" name="on_prem" {% if request.form.get('on_prem') %}checked{%
-                        endif %} />
-                    <label for="on_prem" class="small-muted">On-premise only (disable external API calls)</label>
-                </div>
+                        <div class="field">
+                            <label for="method">Summary mode</label>
+                            <select id="method" name="method">
+                                <option value="abstractive" {% if method=='abstractive' %}selected{% endif %}>
+                                    Abstractive (LLM)
+                                </option>
+                                <option value="bilstm" {% if method=='bilstm' %}selected{% endif %}>
+                                    BiLSTM Extractive
+                                </option>
+                                <option value="extractive" {% if method=='extractive' %}selected{% endif %}>
+                                    Extractive (TextRank)
+                                </option>
+                                <option value="hybrid" {% if method=='hybrid' %}selected{% endif %}>
+                                    Hybrid (TextRank to Abstractive)
+                                </option>
+                            </select>
+                            <div class="hint-line">Choose a faster extractive option for structure, or hybrid when you
+                                want a more polished summary.</div>
+                        </div>
+                    </div>
 
-                <div class="toggle">
-                    <input type="checkbox" id="redact" name="redact" {% if request.form.get('redact') %}checked{% endif
-                        %} />
-                    <label for="redact" class="small-muted">Attempt PHI redaction before external calls</label>
-                </div>
+                    <div class="toggle-row">
+                        <label class="toggle-card">
+                            <input type="checkbox" id="on_prem" name="on_prem" {% if request.form.get('on_prem')
+                                %}checked{% endif %} />
+                            <span>
+                                <strong>On-premise only</strong><br>
+                                <span class="small-muted">Disable external API calls and stay local.</span>
+                            </span>
+                        </label>
+                        <label class="toggle-card">
+                            <input type="checkbox" id="redact" name="redact" {% if request.form.get('redact')
+                                %}checked{% endif %} />
+                            <span>
+                                <strong>Attempt PHI redaction</strong><br>
+                                <span class="small-muted">Try to reduce sensitive identifiers before external
+                                    processing.</span>
+                            </span>
+                        </label>`
+                    </div>
 
-                <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
-                    <button type="submit" class="btn" name="submit_action" value="generate">Generate</button>
-                    <button type="submit" class="btn" name="submit_action" value="prescription">Prescription</button>
-                </div>
-            </div>
+                    <div class="field">
+                        <label for="text">Paste medical text or notes</label>
+                        <textarea id="text" name="text" rows="12"
+                            placeholder="Paste medical reports, clinical notes, discharge summaries, or article text here...">{{ pasted_text or '' }}</textarea>
+                        <div class="hint-line">Tip: use either pasted text or an uploaded file. If both are present, the
+                            uploaded file takes priority.</div>
+                    </div>
 
-            <hr style="margin:14px 0;" />
+                    <div class="action-row">
+                        <button type="submit" class="btn btn-primary" name="submit_action"
+                            value="generate">Summary</button>
+                        <button type="submit" class="btn btn-warm" name="submit_action"
+                            value="prescription">Prescription</button>
+                        <button type="button" id="clear-text" class="btn btn-secondary">Clear Text</button>
+                        {% if uploaded_filename %}
+                        <button type="submit" formaction="{{ url_for('clear_stored') }}" formmethod="post"
+                            class="btn btn-secondary">Clear Stored File</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </section>
 
-            <!-- Paste area -->
-            <label for="text">Paste medical text or notes here (or upload file above):</label><br />
-            <textarea id="text" name="text" rows="12"
-                placeholder="Paste medical reports, clinical notes, or article text...">{{ pasted_text or '' }}</textarea>
+            <aside class="stack">
+                <section class="panel">
+                    <h2>Workflow Notes</h2>
+                    <ul class="list-clean">
+                        <li>Prescription mode is for clinician-review drafts and educational medication context.</li>
+                        <li>The classifier badge is supportive context, not a diagnosis.</li>
+                        <li>Use the extracted text preview below if OCR or parsing needs cleanup before generation.</li>
+                    </ul>
+                </section>
 
-            <div style="margin-top:8px; display:flex; gap:8px; align-items:center;">
-                <button type="submit" class="btn" name="submit_action" value="generate">Generate</button>
-                <button type="submit" class="btn" name="submit_action" value="prescription">Prescription</button>
-                <button type="button" id="clear-text" class="btn btn-secondary">Clear text</button>
-                <div class="small-muted" style="margin-left:auto;">Tip: paste text OR upload a file — not both.</div>
-            </div>
-        </form>
+                <section class="panel">
+                    <h2>Project Focus</h2>
+                    <div class="info-card">
+                        <div class="field-label">Best used for</div>
+                        <p class="panel-intro">Report summarization, condition classification support, and structured
+                            clinical review preparation.</p>
+                        <div class="field-label">Safety reminder</div>
+                        <p class="small-muted">Outputs are drafts for review. Treatment decisions still need a licensed
+                            clinician.</p>
+                    </div>
+                </section>
+            </aside>
+        </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <div class="flashes" style="margin-top:12px;">
+        <div class="flashes" style="margin-top:22px;">
             {% for category, msg in messages %}
             <div class="flash {{ category }}">{{ msg }}</div>
             {% endfor %}
@@ -161,124 +157,125 @@
         {% endif %}
         {% endwith %}
 
-        <!-- Extracted text preview (shows only when file was uploaded) -->
         {% if extracted_text %}
-        <div class="result" style="margin-top:18px;">
-            <h2>Extracted text</h2>
-            <p class="small-muted">This is the text extracted from your uploaded file. Review and edit if needed before
-                summarizing.</p>
-            <textarea id="extracted" readonly>{{ extracted_text }}</textarea>
-            <div style="margin-top:8px;">
-                <button id="copy-extracted" class="btn btn-secondary">Copy extracted text</button>
-                <button id="edit-extracted" class="btn" style="margin-left:6px;">Edit in place</button>
+        <section class="result">
+            <div class="result-header">
+                <div>
+                    <h2>Extracted Text</h2>
+                    <p class="small-muted">Review the parsed text before generating results if the uploaded document
+                        needs correction.</p>
+                </div>
+                <div class="result-toolbar">
+                    <button id="copy-extracted" class="btn btn-secondary">Copy Extracted Text</button>
+                    <button id="edit-extracted" class="btn btn-secondary">Edit In Main Input</button>
+                </div>
             </div>
-        </div>
+            <textarea id="extracted" readonly>{{ extracted_text }}</textarea>
+        </section>
         {% endif %}
 
-        <!-- Show the extractive seed if backend provides it -->
         {% if extractive_seed %}
-        <div class="result" style="margin-top:18px;">
-            <h2>Extractive seed ({% if method == "bilstm" %}BiLSTM{% else %}TextRank{% endif %})</h2>
-            {% if method == "bilstm" %}
-            <p class="small-muted">Top salient sentences selected by the BiLSTM sentence ranker trained on the current
-                report's sentence sequence.</p>
-            {% else %}
-            <p class="small-muted">Top salient sentences selected by TextRank (used as the seed for
-                retrieval/abstractive summarization).</p>
-            {% endif %}
+        <section class="result">
+            <div class="result-header">
+                <div>
+                    <h2>Extractive Seed</h2>
+                    <p class="small-muted">
+                        {% if method == "bilstm" %}
+                        Top sentences selected by the BiLSTM sentence ranker.
+                        {% else %}
+                        Top sentences selected by TextRank for downstream summarization.
+                        {% endif %}
+                    </p>
+                </div>
+                <span class="pill">{% if method == "bilstm" %}BiLSTM{% else %}TextRank{% endif %}</span>
+            </div>
             <div class="chunk">{{ extractive_seed }}</div>
-        </div>
+        </section>
         {% endif %}
 
         {% if classification_result or (summary is not none and classification_error) %}
-        <div class="result" style="margin-top:18px;">
-            <h2>Condition classification</h2>
+        <section class="result">
+            <div class="result-header">
+                <div>
+                    <h2>Condition Classification</h2>
+                    <p class="small-muted">A lightweight document-level signal from the local classifier.</p>
+                </div>
+            </div>
             {% if classification_result %}
             <div class="prediction-card">
                 <div class="prediction-badge">{{ classification_result.label }}</div>
                 <div class="small-muted">Similarity score: {{ '%.3f'|format(classification_result.score) }}</div>
                 <div class="small-muted">Model: {{ classification_result.model_path }}</div>
             </div>
-            <p class="small-muted">This is a lightweight document-level prediction from the locally trained classifier,
-                not a diagnosis.</p>
+            <p class="small-muted" style="margin-top:12px;">Use this as supporting context only. It does not replace
+                clinical judgment.</p>
             {% elif classification_error %}
-            <p class="small-muted">Classification unavailable: {{ classification_error }}</p>
+            <p class="small-muted">{{ classification_error }}</p>
             {% endif %}
-        </div>
+        </section>
         {% endif %}
 
-        <!-- Final summary -->
         {% if summary is not none %}
-        <div class="result" style="margin-top:18px;">
-            <h2>{% if method == "prescription" %}Prescription draft{% else %}Summary{% endif %} <small
-                    class="small-muted">({{ method }})</small></h2>
-            <div class="meta" style="justify-content:space-between;">
-                <div class="small-muted">Summary produced on {{ (now() if now is defined else '') }}</div>
-                <div class="small-muted">Model: {{ summary_model if summary_model is defined else 'local/default' }}
+        <section class="result">
+            <div class="result-header">
+                <div>
+                    <h2>{% if method == "prescription" %}Prescription Draft{% else %}Summary{% endif %}</h2>
+                    <p class="small-muted">Model: {{ summary_model if summary_model is defined else 'local/default' }}
+                    </p>
                 </div>
-            </div>
-            <div style="margin-top:10px;">
-                {% if summary is mapping %}
-                {% if summary.summary %}
-                <div class="chunk">{{ summary.summary }}</div>
-                {% else %}
-                <div class="chunk">{{ summary }}</div>
-                {% endif %}
-                {% else %}
-                <div class="chunk">{{ summary }}</div>
-                {% endif %}
+                <span class="pill">{{ method }}</span>
             </div>
 
-            <!-- Supporting sources (if backend returned them) -->
+            <div class="chunk summary-output">{% if summary_points %}<ul class="clean-list">{% for item in summary_points %}<li>{{ item }}</li>{% endfor %}</ul>{% else %}{% if summary is mapping %}{% if summary.summary %}{{ summary.summary }}{% else %}{{ summary }}{% endif %}{% else %}{{ summary }}{% endif %}{% endif %}</div>
+
             {% if sources %}
             <div class="support-list">
-                <h3 style="margin-top:12px;">Supporting chunks / sources</h3>
+                <h3>Supporting Sources</h3>
                 <p class="small-muted">
                     {% if method == "hybrid" %}
-                    Showing {{ sources|length }} chunk{{ '' if sources|length == 1 else 's' }} selected automatically
-                    from the document size. Click to expand the supporting text.
+                    Showing {{ sources|length }} chunk{{ '' if sources|length == 1 else 's' }} selected from the
+                    uploaded document.
                     {% else %}
-                    Click to expand the supporting chunk text.
+                    Expand a source card to inspect the supporting chunk text.
                     {% endif %}
                 </p>
-                <div>
-                    {% for s in sources %}
-                    <div style="margin-bottom:10px;">
-                        <button class="btn btn-secondary toggle-chunk" data-chunk-id="{{ loop.index0 }}">Show chunk {{
-                            loop.index }}</button>
-                        <div class="chunk-snippet" id="chunk-{{ loop.index0 }}" style="display:none; margin-top:6px;">
-                            {# Support both old and new source shapes: {text, meta} or {snippet, points, meta} #}
-                            <div class="chunk">{{ s.get('text') or s.get('snippet') or '' }}</div>
-                            {% if s.get('points') %}
-                            <div class="small-muted">Top points:</div>
-                            <ul>
+
+                {% for s in sources %}
+                <div class="source-card">
+                    <button class="btn btn-secondary toggle-chunk" data-chunk-id="{{ loop.index0 }}">
+                        Show source {{ loop.index }}
+                    </button>
+                    <div class="source-body" id="chunk-{{ loop.index0 }}">
+                        <div class="chunk">{{ s.get('text') or s.get('snippet') or '' }}</div>
+                        {% if s.get('points') %}
+                        <div class="section">
+                            <div class="field-label">Top points</div>
+                            <ul class="clean-list">
                                 {% for p in s.get('points') %}
                                 <li>{{ p }}</li>
                                 {% endfor %}
                             </ul>
-                            {% endif %}
-                            {% if s.get('meta') %}
-                            <div class="small-muted">Metadata: {{ s.get('meta') }}</div>
-                            {% endif %}
                         </div>
+                        {% endif %}
+                        {% if s.get('meta') %}
+                        <p class="small-muted" style="margin-top:12px;">Metadata: {{ s.get('meta') }}</p>
+                        {% endif %}
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
             {% endif %}
-        </div>
+        </section>
         {% endif %}
 
-        <footer style="margin-top:26px; font-size:0.9rem; color:#666;">
-            <p>Note: This tool is for prototyping and research. Summaries and draft prescriptions require licensed
-                clinician review before any clinical use. Toggle <span class="code">On-premise only</span> to prevent
-                sending data to
-                external APIs.</p>
+        <footer class="footer-note">
+            <p>Note: this project is for prototyping and research. Summaries and prescription-oriented views require
+                licensed clinician review before clinical use. Toggle <span class="code">On-premise only</span> when
+                you want to keep processing local.</p>
         </footer>
     </div>
 
     <script>
-        // Simple client-side helpers
         const fileInput = document.getElementById('file');
         const fileInfo = document.getElementById('file-info');
         const textArea = document.getElementById('text');
@@ -293,16 +290,18 @@
                     fileInfo.textContent = 'No file selected';
                     return;
                 }
-                fileInfo.textContent = `${f.name} — ${Math.round(f.size / 1024)} KB`;
+                fileInfo.textContent = `${f.name} - ${Math.round(f.size / 1024)} KB`;
                 if (textArea && textArea.value.trim()) {
-                    fileInfo.textContent += ' — Note: pasted text will be ignored if file is uploaded.';
+                    fileInfo.textContent += ' - pasted text will be ignored when a file is uploaded.';
                 }
             });
         }
 
         if (clearBtn) {
             clearBtn.addEventListener('click', () => {
-                if (textArea) textArea.value = '';
+                if (textArea) {
+                    textArea.value = '';
+                }
             });
         }
 
@@ -314,7 +313,7 @@
                     await navigator.clipboard.writeText(extracted.value);
                     alert('Extracted text copied to clipboard');
                 } catch (err) {
-                    alert('Could not copy automatically — please select and copy.');
+                    alert('Could not copy automatically. Please copy manually.');
                 }
             });
         }
@@ -324,25 +323,21 @@
                 const extracted = document.getElementById('extracted');
                 const pasted = document.getElementById('text');
                 if (!extracted || !pasted) return;
-                // make extracted editable and copy to textarea for editing
                 extracted.removeAttribute('readonly');
                 pasted.value = extracted.value;
-                // hide the edit button after copying so user edits in textarea
                 editExtractedBtn.style.display = 'none';
-                // scroll to the textarea for convenience
                 pasted.scrollIntoView({ behavior: 'smooth' });
             });
         }
 
-        // Toggle chunk snippets
         document.querySelectorAll('.toggle-chunk').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', () => {
                 const id = btn.getAttribute('data-chunk-id');
                 const panel = document.getElementById('chunk-' + id);
                 if (!panel) return;
-                const shown = panel.style.display !== 'none';
+                const shown = panel.style.display === 'block';
                 panel.style.display = shown ? 'none' : 'block';
-                btn.textContent = shown ? `Show chunk ${parseInt(id) + 1}` : `Hide chunk ${parseInt(id) + 1}`;
+                btn.textContent = shown ? `Show source ${parseInt(id, 10) + 1}` : `Hide source ${pagit auth statusrseInt(id, 10) + 1}`;
             });
         });
     </script>

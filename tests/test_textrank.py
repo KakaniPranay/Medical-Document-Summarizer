@@ -23,6 +23,7 @@ def test_extract_method_returns_plain_language_summary():
     )
     result = s.summarize(text, method="extractive", on_premise=True, vector_store=None)
     assert isinstance(result, dict)
+    assert result["summary"].startswith("- ")
     assert "high blood pressure" in result["summary"].lower()
     assert "trouble breathing" in result["summary"].lower()
 
@@ -39,7 +40,7 @@ def test_bilstm_method_returns_sequence_summary():
 
     assert isinstance(result, dict)
     assert result["seed"]
-    assert result["summary"].startswith("Key points from the report:")
+    assert result["summary"].startswith("- ")
     assert "bilstm" in result["model"].lower()
     assert result["sources"]
 
@@ -56,9 +57,9 @@ def test_methods_have_distinct_fallback_shapes():
 
     assert extractive["summary"] != abstractive["summary"]
     assert hybrid["summary"] != abstractive["summary"]
-    assert "Key points from the report:" in extractive["summary"]
-    assert "In simple terms," in abstractive["summary"]
-    assert "Main issue:" in hybrid["summary"]
+    assert extractive["summary"].startswith("- ")
+    assert abstractive["summary"].startswith("- ")
+    assert hybrid["summary"].startswith("- ")
 
 def test_hybrid_chunk_budget_scales_with_content_size():
     s = HybridSummarizer()

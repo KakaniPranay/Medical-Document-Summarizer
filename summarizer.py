@@ -172,9 +172,37 @@ class HybridSummarizer:
             "Use short, clear sentences. Explain the main problem, important findings, treatment given, "
             "and what follow-up may be needed. Do not add facts that are not in the source. "
             "Avoid medical jargon when possible, and if a medical term must be used, explain it simply. "
-            "Write 2 short paragraphs.\n\n"
+            "Write the answer as short bullet points, not paragraphs.\n\n"
             f"Source text:\n{text}"
         )
+
+    def _format_bullet_summary(self, items: List[str], heading: str = "") -> str:
+        cleaned_items = []
+        for item in items:
+            text = self._simplify_medical_language(item).strip()
+            normalized = re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+            if not text or not normalized:
+                continue
+
+            duplicate = False
+            for entry in cleaned_items:
+                existing = re.sub(r"[^a-z0-9]+", " ", entry.lower()).strip()
+                if normalized == existing or normalized in existing or existing in normalized:
+                    duplicate = True
+                    break
+            if not duplicate:
+                cleaned_items.append(text)
+
+        if not cleaned_items:
+            cleaned_items.append("The report does not contain enough clear information to create a simple summary.")
+
+        lines = [heading] if heading else []
+        for item in cleaned_items:
+            lines.append("- " + item)
+        return "\n".join(lines)
+
+    def _bulletize_text(self, text: str, limit: int = 4, heading: str = "") -> str:
+        return self._format_bullet_summary(self._select_plain_sentences(text, limit=limit), heading)
 
     def _select_plain_sentences(self, text: str, limit: int = 4) -> List[str]:
         sentences = self._sentences_from_text(text)
@@ -193,25 +221,10 @@ class HybridSummarizer:
 
     def _plain_language_fallback(self, text: str, seed: str = "") -> str:
         source = seed or text
-        selected = self._select_plain_sentences(source, limit=4)
-
-        if not selected:
-            return "This report does not contain enough clear information to create a patient-friendly summary."
-
-        main_points = selected[:2]
-        next_steps = selected[2:4]
-
-        first_paragraph = "In simple terms, " + " ".join(main_points)
-        if next_steps:
-            second_paragraph = "The report also says that " + " ".join(next_steps)
-            return first_paragraph + "\n\n" + second_paragraph
-        return first_paragraph
+        return self._format_bullet_summary(self._select_plain_sentences(source, limit=4))
 
     def _extractive_patient_summary(self, text: str, seed: str = "") -> str:
-        selected = self._select_plain_sentences(seed or text, limit=3)
-        if not selected:
-            return "This report does not contain enough clear information to create a simple summary."
-        return "Key points from the report: " + " ".join(selected)
+        return self._format_bullet_summary(self._select_plain_sentences(seed or text, limit=4))
 
     def _abstractive_patient_summary(self, text: str, seed: str = "") -> str:
         return self._plain_language_fallback(text, seed=seed)
@@ -229,16 +242,17 @@ class HybridSummarizer:
                 break
 
         main_issue = self._select_plain_sentences(seed, limit=1)
-        details = evidence_sentences[:2] or self._select_plain_sentences(seed, limit=2)
-        follow_up = evidence_sentences[2:4]
+        details = evidence_sentences[:3] or self._select_plain_sentences(seed, limit=3)
+        follow_up = evidence_sentences[3:4]
 
-        lines = []
-        lines.append("Main issue: " + (main_issue[0] if main_issue else "The report does not clearly state the main issue."))
+        points = []
+        if main_issue:
+            points.extend(main_issue)
         if details:
-            lines.append("Important details: " + " ".join(details))
+            points.extend(details)
         if follow_up:
-            lines.append("What to do next: " + " ".join(follow_up))
-        return "\n\n".join(lines)
+            points.extend(follow_up)
+        return self._format_bullet_summary(points)
 
     def chunk_text(self, text: str, max_words: int = 600, overlap_words: int = 100) -> List[str]:
         text = self._preprocess(text)
@@ -716,7 +730,12 @@ class HybridSummarizer:
                 try:
                     prompt = self._plain_language_prompt(text_clean)
                     out = self.abstractive_openai(prompt)
-                    return {"summary": out, "seed": extractive, "sources": [], "model": "openai-plain-language"}
+                    return {
+                        "summary": self._bulletize_text(out, limit=5),
+                        "seed": extractive,
+                        "sources": [],
+                        "model": "openai-plain-language",
+                    }
                 except Exception as e:
                     logger.warning(f"OpenAI abstractive failed: {e}")
             # fallback to transformers pipeline if available
@@ -771,7 +790,7 @@ class HybridSummarizer:
         prompt = ("You are a clinical summarizer. Use ONLY the provided context chunks. "
                   "Do NOT hallucinate. If information is missing, say that the report does not clearly mention it. "
                   "Rewrite the summary in plain language for a patient or family member. "
-                  "Use short, clear sentences and avoid jargon. Write 2 short paragraphs covering the main problem, "
+                  "Use short, clear sentences and avoid jargon. Write short bullet points covering the main problem, "
                   "important findings, treatment, and follow-up.\n\n"
                   f"Context:\n{ctx}\nSummarize:")
 
@@ -779,7 +798,13 @@ class HybridSummarizer:
         if self.openai and not on_premise:
             try:
                 out = self.abstractive_openai(prompt)
-                return {"summary": out, "seed": seed, "sources": sources_with_points, "model": "openai-plain-language", "chunk_count": len(sources_with_points)}
+                return {
+                    "summary": self._bulletize_text(out, limit=6),
+                    "seed": seed,
+                    "sources": sources_with_points,
+                    "model": "openai-plain-language",
+                    "chunk_count": len(sources_with_points),
+                }
             except Exception as e:
                 logger.warning(f"OpenAI hybrid failed: {e}")
 
