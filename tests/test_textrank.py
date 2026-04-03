@@ -1,6 +1,5 @@
 # tests/test_textrank.py
 from summarizer import HybridSummarizer
-
 class DummyVectorStore:
     def search(self, query, top_k=6):
         return [
