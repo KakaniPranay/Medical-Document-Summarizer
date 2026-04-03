@@ -5,7 +5,6 @@ from docx import Document
 from PIL import Image
 import pytesseract
 
-
 def extract_text_from_pdf_bytes(file_bytes: bytes) -> str:
     text_parts = []
     with pdfplumber.open(io.BytesIO(file_bytes)) as pdf:
