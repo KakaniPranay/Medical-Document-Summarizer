@@ -2,7 +2,6 @@ from pathlib import Path
 
 from train_classifier import TfidfCentroidClassifier, run_training_pipeline
 
-
 def test_tfidf_centroid_classifier_learns_simple_labels():
     rows = [
         {"text": "high glucose and elevated hba1c", "label": "diabetes"},
