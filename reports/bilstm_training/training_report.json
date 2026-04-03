@@ -1,0 +1,324 @@
+{
+  "model_path": "models\\bilstm_extractive.pt",
+  "recommended_top_k": 4,
+  "training_metrics": {
+    "loss": 0.625673420727253,
+    "sentence_precision": 0.8395833333333333,
+    "sentence_recall": 0.8395833333333333,
+    "sentence_f1": 0.8395833333333333,
+    "rouge1_f1": 0.5127269236326168,
+    "rouge2_f1": 0.2182349815590107,
+    "rougeLsum_f1": 0.3843267603821826,
+    "example_count": 16
+  },
+  "validation_metrics": {
+    "loss": 0.5948806256055832,
+    "sentence_precision": 1.0,
+    "sentence_recall": 1.0,
+    "sentence_f1": 1.0,
+    "rouge1_f1": 0.5406350741457124,
+    "rouge2_f1": 0.2560207991242474,
+    "rougeLsum_f1": 0.3959354180098861,
+    "example_count": 4
+  },
+  "best_validation_metrics": {
+    "loss": 0.5948806256055832,
+    "sentence_precision": 1.0,
+    "sentence_recall": 1.0,
+    "sentence_f1": 1.0,
+    "rouge1_f1": 0.5406350741457124,
+    "rouge2_f1": 0.2560207991242474,
+    "rougeLsum_f1": 0.3959354180098861,
+    "example_count": 4
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "average_training_loss": 0.3133050808683038,
+      "training_metrics": {
+        "loss": 0.7031663917005062,
+        "sentence_precision": 0.8708333333333333,
+        "sentence_recall": 0.8708333333333333,
+        "sentence_f1": 0.8708333333333333,
+        "rouge1_f1": 0.513059496952367,
+        "rouge2_f1": 0.21224058503257753,
+        "rougeLsum_f1": 0.3753611435853434,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.697935476899147,
+        "sentence_precision": 0.8541666666666666,
+        "sentence_recall": 0.8541666666666666,
+        "sentence_f1": 0.8541666666666666,
+        "rouge1_f1": 0.5213027713027714,
+        "rouge2_f1": 0.2656172656172656,
+        "rougeLsum_f1": 0.41545260295260295,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 2,
+      "average_training_loss": 0.309533279389143,
+      "training_metrics": {
+        "loss": 0.6701108291745186,
+        "sentence_precision": 0.81875,
+        "sentence_recall": 0.81875,
+        "sentence_f1": 0.81875,
+        "rouge1_f1": 0.5102779558144674,
+        "rouge2_f1": 0.20725349350488648,
+        "rougeLsum_f1": 0.36652310396461757,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6602104902267456,
+        "sentence_precision": 0.8541666666666666,
+        "sentence_recall": 0.8541666666666666,
+        "sentence_f1": 0.8541666666666666,
+        "rouge1_f1": 0.5213027713027714,
+        "rouge2_f1": 0.2656172656172656,
+        "rougeLsum_f1": 0.41545260295260295,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 3,
+      "average_training_loss": 0.3092031963169575,
+      "training_metrics": {
+        "loss": 0.6763520017266273,
+        "sentence_precision": 0.81875,
+        "sentence_recall": 0.81875,
+        "sentence_f1": 0.81875,
+        "rouge1_f1": 0.5128010351447757,
+        "rouge2_f1": 0.20780904906044204,
+        "rougeLsum_f1": 0.36951559340289014,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6642581075429916,
+        "sentence_precision": 0.8541666666666666,
+        "sentence_recall": 0.8541666666666666,
+        "sentence_f1": 0.8541666666666666,
+        "rouge1_f1": 0.5213027713027714,
+        "rouge2_f1": 0.2656172656172656,
+        "rougeLsum_f1": 0.41545260295260295,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 4,
+      "average_training_loss": 0.30594854056835175,
+      "training_metrics": {
+        "loss": 0.6533660590648651,
+        "sentence_precision": 0.81875,
+        "sentence_recall": 0.81875,
+        "sentence_f1": 0.81875,
+        "rouge1_f1": 0.5102779558144674,
+        "rouge2_f1": 0.20725349350488648,
+        "rougeLsum_f1": 0.36652310396461757,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6344862580299377,
+        "sentence_precision": 0.8541666666666666,
+        "sentence_recall": 0.8541666666666666,
+        "sentence_f1": 0.8541666666666666,
+        "rouge1_f1": 0.5213027713027714,
+        "rouge2_f1": 0.2656172656172656,
+        "rougeLsum_f1": 0.41545260295260295,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 5,
+      "average_training_loss": 0.30642327945679426,
+      "training_metrics": {
+        "loss": 0.6015562303364277,
+        "sentence_precision": 0.81875,
+        "sentence_recall": 0.81875,
+        "sentence_f1": 0.81875,
+        "rouge1_f1": 0.5102779558144674,
+        "rouge2_f1": 0.20725349350488648,
+        "rougeLsum_f1": 0.36652310396461757,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.5677471607923508,
+        "sentence_precision": 0.8541666666666666,
+        "sentence_recall": 0.8541666666666666,
+        "sentence_f1": 0.8541666666666666,
+        "rouge1_f1": 0.5213027713027714,
+        "rouge2_f1": 0.2656172656172656,
+        "rougeLsum_f1": 0.41545260295260295,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 6,
+      "average_training_loss": 0.29905996192246675,
+      "training_metrics": {
+        "loss": 0.6328744143247604,
+        "sentence_precision": 0.8552083333333333,
+        "sentence_recall": 0.8552083333333333,
+        "sentence_f1": 0.8552083333333333,
+        "rouge1_f1": 0.5151420589664357,
+        "rouge2_f1": 0.21233839410925986,
+        "rougeLsum_f1": 0.3773048681318077,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6076678335666656,
+        "sentence_precision": 0.8541666666666666,
+        "sentence_recall": 0.8541666666666666,
+        "sentence_f1": 0.8541666666666666,
+        "rouge1_f1": 0.5213027713027714,
+        "rouge2_f1": 0.2656172656172656,
+        "rougeLsum_f1": 0.41545260295260295,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 7,
+      "average_training_loss": 0.29624579660594463,
+      "training_metrics": {
+        "loss": 0.6700814440846443,
+        "sentence_precision": 0.8552083333333333,
+        "sentence_recall": 0.8552083333333333,
+        "sentence_f1": 0.8552083333333333,
+        "rouge1_f1": 0.5048107665953454,
+        "rouge2_f1": 0.21048046014602245,
+        "rougeLsum_f1": 0.3818476837166414,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6476931720972061,
+        "sentence_precision": 0.9166666666666666,
+        "sentence_recall": 0.9166666666666666,
+        "sentence_f1": 0.9166666666666666,
+        "rouge1_f1": 0.5092657342657343,
+        "rouge2_f1": 0.2530177961212444,
+        "rougeLsum_f1": 0.40711926961926964,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 8,
+      "average_training_loss": 0.2938868347555399,
+      "training_metrics": {
+        "loss": 0.625673420727253,
+        "sentence_precision": 0.8395833333333333,
+        "sentence_recall": 0.8395833333333333,
+        "sentence_f1": 0.8395833333333333,
+        "rouge1_f1": 0.5127269236326168,
+        "rouge2_f1": 0.2182349815590107,
+        "rougeLsum_f1": 0.3843267603821826,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.5948806256055832,
+        "sentence_precision": 1.0,
+        "sentence_recall": 1.0,
+        "sentence_f1": 1.0,
+        "rouge1_f1": 0.5406350741457124,
+        "rouge2_f1": 0.2560207991242474,
+        "rougeLsum_f1": 0.3959354180098861,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 9,
+      "average_training_loss": 0.29176074359565973,
+      "training_metrics": {
+        "loss": 0.6751934140920639,
+        "sentence_precision": 0.8604166666666667,
+        "sentence_recall": 0.8604166666666667,
+        "sentence_f1": 0.8604166666666667,
+        "rouge1_f1": 0.4636795990448045,
+        "rouge2_f1": 0.17615220232774362,
+        "rougeLsum_f1": 0.3620859747476552,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6574103832244873,
+        "sentence_precision": 1.0,
+        "sentence_recall": 1.0,
+        "sentence_f1": 1.0,
+        "rouge1_f1": 0.5406350741457124,
+        "rouge2_f1": 0.2560207991242474,
+        "rougeLsum_f1": 0.3959354180098861,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 10,
+      "average_training_loss": 0.28885810635983944,
+      "training_metrics": {
+        "loss": 0.5904993191361427,
+        "sentence_precision": 0.8395833333333333,
+        "sentence_recall": 0.8395833333333333,
+        "sentence_f1": 0.8395833333333333,
+        "rouge1_f1": 0.48311035249509793,
+        "rouge2_f1": 0.19483162884316638,
+        "rougeLsum_f1": 0.37616376948315683,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.5609576106071472,
+        "sentence_precision": 1.0,
+        "sentence_recall": 1.0,
+        "sentence_f1": 1.0,
+        "rouge1_f1": 0.5406350741457124,
+        "rouge2_f1": 0.2560207991242474,
+        "rougeLsum_f1": 0.3959354180098861,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 11,
+      "average_training_loss": 0.282637151889503,
+      "training_metrics": {
+        "loss": 0.6393097080290318,
+        "sentence_precision": 0.8291666666666667,
+        "sentence_recall": 0.8291666666666667,
+        "sentence_f1": 0.8291666666666667,
+        "rouge1_f1": 0.473964261696668,
+        "rouge2_f1": 0.18510092567754957,
+        "rougeLsum_f1": 0.3655563086224744,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.6268896162509918,
+        "sentence_precision": 1.0,
+        "sentence_recall": 1.0,
+        "sentence_f1": 1.0,
+        "rouge1_f1": 0.5406350741457124,
+        "rouge2_f1": 0.2560207991242474,
+        "rougeLsum_f1": 0.3959354180098861,
+        "example_count": 4
+      }
+    },
+    {
+      "epoch": 12,
+      "average_training_loss": 0.28431918378919363,
+      "training_metrics": {
+        "loss": 0.6111400574445724,
+        "sentence_precision": 0.8447916666666667,
+        "sentence_recall": 0.8447916666666667,
+        "sentence_f1": 0.8447916666666667,
+        "rouge1_f1": 0.47354857312076815,
+        "rouge2_f1": 0.18494564617444398,
+        "rougeLsum_f1": 0.3634534134738046,
+        "example_count": 16
+      },
+      "validation_metrics": {
+        "loss": 0.5957433730363846,
+        "sentence_precision": 1.0,
+        "sentence_recall": 1.0,
+        "sentence_f1": 1.0,
+        "rouge1_f1": 0.5406350741457124,
+        "rouge2_f1": 0.2560207991242474,
+        "rougeLsum_f1": 0.3959354180098861,
+        "example_count": 4
+      }
+    }
+  ]
+}
