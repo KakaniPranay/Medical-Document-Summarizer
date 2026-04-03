@@ -2,6 +2,7 @@
 import nltk.tokenize
 from typing import List
 
+
 def chunk_text_by_sentences(text: str, max_words: int = 600, overlap_words: int = 100) -> List[str]:
     sents = nltk.tokenize.sent_tokenize(text)
     chunks = []
