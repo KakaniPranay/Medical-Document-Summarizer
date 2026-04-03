@@ -3,7 +3,6 @@ import csv
 import json
 from pathlib import Path
 
-
 def load_labels(csv_path, actual_col="actual", predicted_col="predicted"):
     rows = []
     with open(csv_path, newline="", encoding="utf-8") as handle:
