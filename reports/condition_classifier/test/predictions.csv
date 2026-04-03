@@ -1,0 +1,17 @@
+text,actual,predicted,score
+Poor glycemic control with increased thirst and elevated random glucose is noted.,diabetes,diabetes,0.3773
+Type 2 diabetic patient has raised fasting glucose and blurred vision.,diabetes,diabetes,0.4282
+Blood pressure remains high on repeated checks with dizziness.,hypertension,hypertension,0.4059
+Hypertensive patient reports headache and elevated clinic blood pressure.,hypertension,hypertension,0.5513
+The impression is chronic kidney disease with high creatinine and low eGFR.,kidney_disease,kidney_disease,0.5955
+Abnormal renal function and proteinuria support kidney disease.,kidney_disease,kidney_disease,0.3888
+Liver enzymes are elevated with fatty liver changes and jaundice history.,liver_disease,liver_disease,0.5232
+Chronic liver disease is suspected due to raised bilirubin and AST ALT values.,liver_disease,liver_disease,0.5262
+Low hemoglobin and exertional weakness are typical of anemia.,anemia,anemia,0.4916
+Anemia is recorded with pallor and reduced blood count values.,anemia,anemia,0.3988
+Raised LDL and abnormal lipid profile indicate high cholesterol.,high_cholesterol,high_cholesterol,0.5344
+Persistent hyperlipidemia with elevated triglycerides supports high cholesterol.,high_cholesterol,high_cholesterol,0.4865
+TSH abnormality with thyroid medication review indicates thyroid disorder.,thyroid_disorder,thyroid_disorder,0.6706
+"Weight change, fatigue, and altered T3 T4 suggest thyroid disorder.",thyroid_disorder,thyroid_disorder,0.4195
+"Gastritis is likely because of acidity, reflux, and epigastric burning.",gastritis,gastritis,0.5036
+Upper abdominal discomfort with acid peptic symptoms suggests gastritis.,gastritis,gastritis,0.4908
