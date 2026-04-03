@@ -2,7 +2,6 @@ from pathlib import Path
 
 from train_bilstm import build_reference_labels, load_training_records
 
-
 def test_load_training_records_from_sample_jsonl():
     sample_path = Path("tests/data/bilstm_training_sample.jsonl")
     records = load_training_records(sample_path)
@@ -10,7 +9,6 @@ def test_load_training_records_from_sample_jsonl():
     assert len(records) == 3
     assert records[0]["text"]
     assert records[0]["summary"]
-
 
 def test_build_reference_labels_prefers_oracle_sentence_ids():
     sentences = [
@@ -27,7 +25,6 @@ def test_build_reference_labels_prefers_oracle_sentence_ids():
     assert labels == [0.0, 1.0, 1.0]
     assert alignment_scores == labels
     assert target_count == 2
-
 
 def test_build_reference_labels_generates_at_least_one_positive():
     sentences = [
