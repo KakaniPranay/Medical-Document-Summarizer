@@ -1,0 +1,18 @@
+{
+  "model_path": "models\\condition_classifier.json",
+  "labels": [
+    "anemia",
+    "diabetes",
+    "gastritis",
+    "high_cholesterol",
+    "hypertension",
+    "kidney_disease",
+    "liver_disease",
+    "thyroid_disorder"
+  ],
+  "train_examples": 48,
+  "val_examples": 16,
+  "test_examples": 16,
+  "validation_accuracy": 1.0,
+  "test_accuracy": 1.0
+}
