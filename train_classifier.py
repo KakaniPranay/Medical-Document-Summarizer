@@ -11,7 +11,6 @@ from evaluation import build_classification_report, format_classification_report
 
 TOKEN_PATTERN = re.compile(r"[a-z0-9']+")
 
-
 def read_dataset(csv_path):
     rows = []
     with open(csv_path, newline="", encoding="utf-8") as handle:
