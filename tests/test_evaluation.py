@@ -2,7 +2,6 @@ from pathlib import Path
 
 from evaluation import build_classification_report, format_classification_report, write_report_files
 
-
 def test_build_classification_report_metrics():
     rows = [
         ("summary", "summary"),
