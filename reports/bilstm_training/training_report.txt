@@ -1,0 +1,34 @@
+BiLSTM Extractive Summarizer Training Report
+
+Best validation metrics
+  loss: 0.5949
+  sentence_precision: 1.0000
+  sentence_recall: 1.0000
+  sentence_f1: 1.0000
+  rouge1_f1: 0.5406
+  rouge2_f1: 0.2560
+  rougeLsum_f1: 0.3959
+  examples: 4
+
+Training metrics
+  loss: 0.6257
+  sentence_precision: 0.8396
+  sentence_recall: 0.8396
+  sentence_f1: 0.8396
+  rouge1_f1: 0.5127
+  rouge2_f1: 0.2182
+  rougeLsum_f1: 0.3843
+  examples: 16
+
+Validation metrics
+  loss: 0.5949
+  sentence_precision: 1.0000
+  sentence_recall: 1.0000
+  sentence_f1: 1.0000
+  rouge1_f1: 0.5406
+  rouge2_f1: 0.2560
+  rougeLsum_f1: 0.3959
+  examples: 4
+
+Recommended top_k: 4
+Model checkpoint: models\bilstm_extractive.pt
