@@ -11,7 +11,6 @@ from rouge_score import rouge_scorer
 DEFAULT_MODEL_PATH = Path("models/bilstm_extractive.pt")
 DEFAULT_REPORT_DIR = Path("reports/bilstm_training")
 
-
 def _safe_divide(numerator, denominator):
     if denominator == 0:
         return 0.0
