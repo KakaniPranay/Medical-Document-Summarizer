@@ -5,7 +5,7 @@ import re
 import textwrap
  
 logger = logging.getLogger(__name__) 
- 
+
 DEFAULT_MISSING_INFORMATION = [ 
     'Confirmed working diagnosis', 
     'Patient age and weight', 
