@@ -1,0 +1,9 @@
+actual/predicted,anemia,diabetes,gastritis,high_cholesterol,hypertension,kidney_disease,liver_disease,thyroid_disorder
+anemia,2,0,0,0,0,0,0,0
+diabetes,0,2,0,0,0,0,0,0
+gastritis,0,0,2,0,0,0,0,0
+high_cholesterol,0,0,0,2,0,0,0,0
+hypertension,0,0,0,0,2,0,0,0
+kidney_disease,0,0,0,0,0,2,0,0
+liver_disease,0,0,0,0,0,0,2,0
+thyroid_disorder,0,0,0,0,0,0,0,2

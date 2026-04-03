@@ -1,0 +1,17 @@
+text,actual,predicted,score
+HbA1c remains high with frequent urination and uncontrolled fasting sugar.,diabetes,diabetes,0.3933
+Diabetic follow-up notes hyperglycemia and numbness in the feet.,diabetes,diabetes,0.2378
+Serial readings confirm elevated blood pressure with headache and salt restriction advice.,hypertension,hypertension,0.4939
+Known hypertension with uncontrolled systolic values despite regular tablets.,hypertension,hypertension,0.1847
+"Creatinine and urea are raised with reduced eGFR, consistent with kidney disease.",kidney_disease,kidney_disease,0.5498
+Renal impairment is noted with swelling and abnormal kidney function tests.,kidney_disease,kidney_disease,0.3032
+Elevated bilirubin and transaminases suggest ongoing liver disease.,liver_disease,liver_disease,0.5089
+Fatty liver with raised ALT and abstinence counseling is documented.,liver_disease,liver_disease,0.5082
+Low hemoglobin with weakness and pallor indicates anemia.,anemia,anemia,0.5318
+CBC confirms anemia with low haemoglobin and fatigue.,anemia,anemia,0.4722
+"Lipid profile shows high LDL and triglycerides, supporting high cholesterol.",high_cholesterol,high_cholesterol,0.5345
+Dyslipidemia follow-up notes persistent high cholesterol above goal.,high_cholesterol,high_cholesterol,0.3725
+High TSH with tiredness and weight gain points to thyroid disorder.,thyroid_disorder,thyroid_disorder,0.5218
+Abnormal thyroid profile with tremor and palpitations suggests thyroid disorder.,thyroid_disorder,thyroid_disorder,0.5757
+Epigastric burning after meals and reflux symptoms are consistent with gastritis.,gastritis,gastritis,0.4633
+"Acidity and upper abdominal pain improved with proton pump inhibitor, likely gastritis.",gastritis,gastritis,0.4835

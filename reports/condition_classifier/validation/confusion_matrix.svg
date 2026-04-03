@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="786" height="736" viewBox="0 0 786 736">
+<style>
+text { font-family: Arial, sans-serif; fill: #16324f; }
+.title { font-size: 20px; font-weight: bold; }
+.axis { font-size: 12px; font-weight: bold; }
+.tick { font-size: 12px; }
+.cell-value { font-size: 14px; font-weight: bold; text-anchor: middle; dominant-baseline: middle; }
+</style>
+<text class="title" x="180" y="36">Confusion Matrix</text>
+<text class="axis" x="468.0" y="70" text-anchor="middle">Predicted label</text>
+<text class="axis" x="28" y="408.0" transform="rotate(-90 28 408.0)" text-anchor="middle">Actual label</text>
+<text class="tick" x="216.0" y="104" text-anchor="middle">anemia</text>
+<text class="tick" x="288.0" y="104" text-anchor="middle">diabetes</text>
+<text class="tick" x="360.0" y="104" text-anchor="middle">gastritis</text>
+<text class="tick" x="432.0" y="104" text-anchor="middle">high_cholesterol</text>
+<text class="tick" x="504.0" y="104" text-anchor="middle">hypertension</text>
+<text class="tick" x="576.0" y="104" text-anchor="middle">kidney_disease</text>
+<text class="tick" x="648.0" y="104" text-anchor="middle">liver_disease</text>
+<text class="tick" x="720.0" y="104" text-anchor="middle">thyroid_disorder</text>
+<text class="tick" x="166" y="160.0" text-anchor="end">anemia</text>
+<text class="tick" x="166" y="232.0" text-anchor="end">diabetes</text>
+<text class="tick" x="166" y="304.0" text-anchor="end">gastritis</text>
+<text class="tick" x="166" y="376.0" text-anchor="end">high_cholesterol</text>
+<text class="tick" x="166" y="448.0" text-anchor="end">hypertension</text>
+<text class="tick" x="166" y="520.0" text-anchor="end">kidney_disease</text>
+<text class="tick" x="166" y="592.0" text-anchor="end">liver_disease</text>
+<text class="tick" x="166" y="664.0" text-anchor="end">thyroid_disorder</text>
+<rect x="180" y="120" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="156.0">2</text>
+<rect x="252" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="156.0">0</text>
+<rect x="324" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="156.0">0</text>
+<rect x="396" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="156.0">0</text>
+<rect x="468" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="156.0">0</text>
+<rect x="540" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="156.0">0</text>
+<rect x="612" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="156.0">0</text>
+<rect x="684" y="120" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="156.0">0</text>
+<rect x="180" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="228.0">0</text>
+<rect x="252" y="192" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="228.0">2</text>
+<rect x="324" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="228.0">0</text>
+<rect x="396" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="228.0">0</text>
+<rect x="468" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="228.0">0</text>
+<rect x="540" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="228.0">0</text>
+<rect x="612" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="228.0">0</text>
+<rect x="684" y="192" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="228.0">0</text>
+<rect x="180" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="300.0">0</text>
+<rect x="252" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="300.0">0</text>
+<rect x="324" y="264" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="300.0">2</text>
+<rect x="396" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="300.0">0</text>
+<rect x="468" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="300.0">0</text>
+<rect x="540" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="300.0">0</text>
+<rect x="612" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="300.0">0</text>
+<rect x="684" y="264" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="300.0">0</text>
+<rect x="180" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="372.0">0</text>
+<rect x="252" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="372.0">0</text>
+<rect x="324" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="372.0">0</text>
+<rect x="396" y="336" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="372.0">2</text>
+<rect x="468" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="372.0">0</text>
+<rect x="540" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="372.0">0</text>
+<rect x="612" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="372.0">0</text>
+<rect x="684" y="336" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="372.0">0</text>
+<rect x="180" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="444.0">0</text>
+<rect x="252" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="444.0">0</text>
+<rect x="324" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="444.0">0</text>
+<rect x="396" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="444.0">0</text>
+<rect x="468" y="408" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="444.0">2</text>
+<rect x="540" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="444.0">0</text>
+<rect x="612" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="444.0">0</text>
+<rect x="684" y="408" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="444.0">0</text>
+<rect x="180" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="516.0">0</text>
+<rect x="252" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="516.0">0</text>
+<rect x="324" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="516.0">0</text>
+<rect x="396" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="516.0">0</text>
+<rect x="468" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="516.0">0</text>
+<rect x="540" y="480" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="516.0">2</text>
+<rect x="612" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="516.0">0</text>
+<rect x="684" y="480" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="516.0">0</text>
+<rect x="180" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="588.0">0</text>
+<rect x="252" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="588.0">0</text>
+<rect x="324" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="588.0">0</text>
+<rect x="396" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="588.0">0</text>
+<rect x="468" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="588.0">0</text>
+<rect x="540" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="588.0">0</text>
+<rect x="612" y="552" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="588.0">2</text>
+<rect x="684" y="552" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="588.0">0</text>
+<rect x="180" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="216.0" y="660.0">0</text>
+<rect x="252" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="288.0" y="660.0">0</text>
+<rect x="324" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="360.0" y="660.0">0</text>
+<rect x="396" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="432.0" y="660.0">0</text>
+<rect x="468" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="504.0" y="660.0">0</text>
+<rect x="540" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="576.0" y="660.0">0</text>
+<rect x="612" y="624" width="72" height="72" fill="rgb(245, 250, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="648.0" y="660.0">0</text>
+<rect x="684" y="624" width="72" height="72" fill="rgb(105, 110, 255)" stroke="#8ea3b5" stroke-width="1" />
+<text class="cell-value" x="720.0" y="660.0">2</text>
+</svg>
